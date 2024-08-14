@@ -14,7 +14,7 @@ class App extends React.Component {
         },
         {
           id: "theme-loop",
-          name: "Theme Loop.wav",
+          name: "Theme Loop.mp3",
           src: "test-library/Theme Loop.mp3",
           type: "audio/mpeg"
         }
@@ -47,23 +47,36 @@ class Library extends React.Component {
   }
 
   addAudioFile() {
-
+    console.log("Adding audio file");
   }
 
-  playAudioFile() {
-      
+  playAudioFile(event) {
+    document.querySelectorAll("audio").forEach(audio => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+    if (event.target.classList.contains("library-playing")) {
+      event.target.classList.remove("library-playing");
+    } else {
+      document.querySelectorAll("library-playing").forEach(btn => {
+        btn.classList.remove("library-playing");
+      })
+      event.target.classList.add("library-playing");
+      event.target.parentElement.querySelector("audio").play();
+    };
   }
 
   render() {
     return (
       <div id="library">
         <h2>Library</h2>
-        <div class="toolbar">
-          <input type="file" />
+        <div className="toolbar">
+          <button onClick={this.addAudioFile}>Add Audio File</button>
         </div>
-        <div class="audio-file-container">
+        <div className="audio-file-container">
           {this.props.library.map(audioFile => (
-            <AudioFile id={audioFile.id} name={audioFile.name} src={audioFile.src}/>
+
+            <AudioFile key={audioFile.id} id={audioFile.id} name={audioFile.name} src={audioFile.src} playAudioFile={this.playAudioFile}/>
           ))}
         </div>          
       </div>
@@ -73,11 +86,11 @@ class Library extends React.Component {
 
 const AudioFile = (props) => {
   return (
-    <div class="audio-file">
+    <div className="audio-file">
+      <button className="library-play-btn" onClick={props.playAudioFile}>Play</button>
       <p>{props.name}</p>
-      <audio controls>
-        <source src={props.src} type={props.type}/>
-      </audio>
+      <audio id={props.id} src={props.src} type={props.type}></audio>
+      
     </div>
   );
 }
