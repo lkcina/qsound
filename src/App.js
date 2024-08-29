@@ -67,7 +67,7 @@ class Library extends React.Component {
     if (event.target.classList.contains("library-playing")) {
       event.target.classList.remove("library-playing");
     } else {
-      document.querySelectorAll("library-playing").forEach(btn => {
+      document.querySelectorAll(".library-playing").forEach(btn => {
         btn.classList.remove("library-playing");
       })
       event.target.classList.add("library-playing");
@@ -77,10 +77,10 @@ class Library extends React.Component {
 
   render() {
     return (
-      <div id="library">
+      <div id="library" className="window">
         <h2>Library</h2>
         <div className="toolbar">
-          <button onClick={this.addAudioFile}>Add Audio File</button>
+          <button className="add-audio-btn" onClick={this.addAudioFile}>+</button>
         </div>
         <div className="audio-file-container">
           {this.props.library.map(audioFile => (
@@ -96,9 +96,9 @@ class Library extends React.Component {
 const AudioFile = (props) => {
   return (
     <div className="audio-file">
-      <button className="library-play-btn" onClick={props.playAudioFile}>Play</button>
+      <button className="library-play-btn" onClick={props.playAudioFile}>P</button>
       <p>{props.name}</p>
-      <button className="library-del-btn" onClick={props.delAudioFile}>Delete</button>
+      <button className="library-del-btn" onClick={props.delAudioFile}>X</button>
       <audio id={props.id} src={props.src} type={props.type}></audio>
       
     </div>
