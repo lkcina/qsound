@@ -20,15 +20,43 @@ class App extends React.Component {
           src: "test-library/Theme Loop.mp3",
           type: "audio/mpeg"
         }
-    ],
-      events: [],
-      activeEvent: null,
+      ],
+      events: [
+        {
+          id: "1",
+          name: "1",
+          notes: ""
+        },
+        {
+          id: "2",
+          name: "2",
+          notes: ""
+        },
+        {
+          id: "end",
+          name: "End",
+          notes: ""
+        }
+      ],
+      eventStart: {
+        id: "end",
+        name: "End",
+        notes: ""
+      },
+      activeEvent: {
+        id: "end",
+        name: "End",
+        notes: ""
+      },
       cues: [],
       static: []
     };
 
     this.editLibrary = this.editLibrary.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
+    this.triggerEvent = this.triggerEvent.bind(this);
+    this.setEventStart = this.setEventStart.bind(this);
+    this.setActiveEvent = this.setActiveEvent.bind(this);
   }
 
   editLibrary(array) {
@@ -36,12 +64,37 @@ class App extends React.Component {
   }
 
   toggleMode() {
-    if (this.state.mode === "create") {
-      this.setState({mode: "present"});
-    } else {
+    if (this.state.mode === "present") {
       this.setState({mode: "create"});
+      this.setState({activeEvent: this.state.eventStart});
+      console.log(this.state.activeEvent);
+    } else {
+      this.setState({mode: "present", activeEvent: this.state.eventStart});
     };
-    console.log(this.state.mode + " mode")
+  }
+
+  setEventStart(event) {
+    this.setState({eventStart: this.state.events.find(e => e.id === event.target.value)});    
+  }
+
+  setActiveEvent(event) {
+    this.setState({activeEvent: this.state.events.find(e => e.id === event.target.value)});
+    console.log(this.state.activeEvent);
+  };
+
+  triggerEvent() {
+    if (this.state.activeEvent.id === "end") {
+      console.log("End of event timeline");
+      this.setState({mode: "create", activeEvent: this.state.eventStart});
+      return;
+    }
+    if (this.state.mode === "create") {
+      console.log("Triggering" + this.state.activeEvent.name);
+      return
+    } else {
+      console.log("Triggering" + this.state.activeEvent.name + " and advancing to " + this.state.events[this.state.events.indexOf(this.state.activeEvent) + 1].name);
+      this.setState({activeEvent: this.state.events[this.state.events.indexOf(this.state.activeEvent) + 1]});
+    }
   }
 
   render() {
@@ -49,7 +102,7 @@ class App extends React.Component {
       <div id="app">
         My React App!
         <Library library={this.state.library} editLibrary={this.editLibrary} />
-        <EventTimeline events={this.state.events} toggleMode={this.toggleMode} activeEvent={this.state.activeEvent} />
+        <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent}/>
       </div>
     );
   }
