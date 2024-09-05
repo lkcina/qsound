@@ -1,10 +1,12 @@
 import './App.css';
+import EventTimeline from "./EventTimeline.js";
 import React from 'react';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      mode: "create",
       library: [
         {
           id: "action-adventure-demo",
@@ -19,21 +21,35 @@ class App extends React.Component {
           type: "audio/mpeg"
         }
     ],
-      events: []
+      events: [],
+      activeEvent: null,
+      cues: [],
+      static: []
     };
 
     this.editLibrary = this.editLibrary.bind(this);
+    this.toggleMode = this.toggleMode.bind(this);
   }
 
   editLibrary(array) {
     this.setState({library: array});
   }
 
+  toggleMode() {
+    if (this.state.mode === "create") {
+      this.setState({mode: "present"});
+    } else {
+      this.setState({mode: "create"});
+    };
+    console.log(this.state.mode + " mode")
+  }
+
   render() {
     return (
       <div id="app">
         My React App!
-        <Library library={this.state.library} editLibrary={this.editLibrary}/>
+        <Library library={this.state.library} editLibrary={this.editLibrary} />
+        <EventTimeline events={this.state.events} toggleMode={this.toggleMode} activeEvent={this.state.activeEvent} />
       </div>
     );
   }
