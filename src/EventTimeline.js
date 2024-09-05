@@ -52,10 +52,29 @@ class EventTimeline extends React.Component {
                             <button class="next-event" onClick={this.nextEvent}>&gt;</button>
                         </div>
                     </div>
+                    <div id="timer"></div>
+                </div>
+                <div id="event-list">
+                    {this.props.events.map(event => {
+                        if (event.id === "end") {
+                            return <div key={event.id} id={event.id} name={event.name} />
+                        } else {
+                            return <Event key={event.id} id={event.id} name={event.name} notes={event.notes} editEvent={this.props.editEvent} />
+                        }
+                    })}
                 </div>
             </div>
         );
-    }
-}
+    };
+};
+
+const Event = (props) => {
+    return (
+        <div className="event" id={props.id}>
+            <input className="event-name" type="text" value={props.name} onChange={props.editEvent} />
+            <textarea className="event-notes" value={props.notes} onChange={props.editEvent} />
+        </div>
+    );
+};
 
 export default EventTimeline;
