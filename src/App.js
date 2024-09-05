@@ -58,6 +58,7 @@ class App extends React.Component {
     this.triggerEvent = this.triggerEvent.bind(this);
     this.setEventStart = this.setEventStart.bind(this);
     this.setActiveEvent = this.setActiveEvent.bind(this);
+    this.editEvent = this.editEvent.bind(this);
   }
 
   editLibrary(array) {
@@ -96,6 +97,10 @@ class App extends React.Component {
       console.log("Triggering" + this.state.activeEvent.name + " and advancing to " + this.state.events[this.state.events.indexOf(this.state.activeEvent) + 1].name);
       this.setState({activeEvent: this.state.events[this.state.events.indexOf(this.state.activeEvent) + 1]});
     }
+  };
+
+  editEvent(event) {
+    console.log(event.target.value);
   }
 
   render() {
@@ -103,7 +108,7 @@ class App extends React.Component {
       <div id="app">
         My React App!
         <Library library={this.state.library} editLibrary={this.editLibrary} />
-        <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent}/>
+        <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEvent={this.editEvent} />
       </div>
     );
   }
