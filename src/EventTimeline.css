@@ -17,3 +17,7 @@
     height: calc(100% - 50px);
     overflow-y: scroll;
 }
+
+.active {
+    box-shadow: 0 0 5px 3px rgb(213, 193, 121);
+}

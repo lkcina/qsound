@@ -67,7 +67,7 @@ class EventTimeline extends React.Component {
                             </div>
                         );
                         } else {
-                            return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} editEventName={this.props.editEventName} editEventNotes={this.props.editEventNotes} editEventId={this.props.editEventId} />
+                            return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} activeEvent={this.props.activeEvent} editEventName={this.props.editEventName} editEventNotes={this.props.editEventNotes} editEventId={this.props.editEventId} />
                         }
                     })}
                 </div>
@@ -78,7 +78,7 @@ class EventTimeline extends React.Component {
 
 const EventComponent = (props) => {
     return (
-        <div className="event" id={props.id}>
+        <div className={props.activeEvent.id === props.id ? "event active" : "event"} id={props.id}>
             <input className="event-name" type="text" value={props.name} onChange={props.editEventName} onBlur={props.editEventId} onKeyDown={(event) => event.keyCode === 13 ? props.editEventId : props.editEventName} />
             <textarea className="event-notes" value={props.notes} onChange={props.editEventNotes} />
         </div>
