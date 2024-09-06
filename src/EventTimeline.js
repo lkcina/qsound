@@ -30,6 +30,8 @@ class EventTimeline extends React.Component {
     }
 
     render() {
+        const eventLineWidth = JSON.stringify((this.props.events.length * 200) - 65) + "px";
+
         return (
             <div id="event-timeline" className="window">
                 <div className="toolbar">
@@ -55,21 +57,23 @@ class EventTimeline extends React.Component {
                     </div>
                     <div id="timer">00:00:00.00</div>
                 </div>
-                <div id="event-list" className="container">
-                    <div id="start" name="Start"></div>
-                    <div id="event-line"></div>
-                    {this.props.events.map(event => {
-                        if (event.id === "end") {
-                            return (
-                            <div key={event.id} id={event.id} name={event.name}>
-                                <div id="new-event" onClick={this.props.newEvent}>+</div>
-                                <div id={event.id} name={event.name}></div>
-                            </div>
-                        );
-                        } else {
-                            return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} activeEvent={this.props.activeEvent} editEventName={this.props.editEventName} editEventNotes={this.props.editEventNotes} editEventId={this.props.editEventId} />
-                        }
-                    })}
+                <div id="event-list-container" className="container">
+                    <div id="event-list">
+                        <div id="start" name="Start">Start</div>
+                        <div id="event-line" style={{width: eventLineWidth}}></div>
+                        {this.props.events.map(event => {
+                            if (event.id === "end") {
+                                return (
+                                <div key={event.id} id="end-timeline" name={event.name}>
+                                    <div id="new-event" onClick={this.props.newEvent}>+</div>
+                                    <div id={event.id} name={event.name} className={this.props.activeEvent.id === event.id ? "active" : ""}>End</div>
+                                </div>
+                            );
+                            } else {
+                                return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} activeEvent={this.props.activeEvent} editEventName={this.props.editEventName} editEventNotes={this.props.editEventNotes} editEventId={this.props.editEventId} />
+                            }
+                        })}
+                    </div>
                 </div>
             </div>
         );

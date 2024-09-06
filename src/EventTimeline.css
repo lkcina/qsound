@@ -111,9 +111,73 @@
     vertical-align: middle;
 }
 
-#event-list {
+#event-list-container {
     height: calc(100% - 50px);
     overflow-x: auto;
+}
+
+#event-list {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+#start, #end {
+    height: 50px;
+    width: 50px;
+    min-width: 50px;
+    background-color: rgb(100, 100, 100);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.5rem;
+    color: rgb(230, 230, 230);
+    z-index: 0;
+}
+
+#end-timeline {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+#end-timeline div {
+    display: inline-block;
+}
+
+#new-event {
+    height: 30px;
+    width: 30px;
+    background: rgb(200, 200, 200);
+    margin-right: 50px;
+    border-radius: 50%;
+    color: rgb(100, 100, 100);
+    text-align: center;
+    line-height: 30px;
+    font-size: 3rem;
+    box-shadow: 0 0 4px 5px rgb(200, 200, 200);
+    z-index: 2;
+}
+
+#new-event:hover {
+    background: rgb(230, 230, 230);
+    box-shadow: 0 0 5px 6px rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+#event-line {
+    height: 15px;
+    position: absolute;
+    left: 60px;
+    background-color: rgb(100, 100, 100);
+    z-index: 1;
+}
+
+.event {
+    width: 150px;
+    z-index: 2;
 }
 
 .active {
