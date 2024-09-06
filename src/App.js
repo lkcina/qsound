@@ -105,29 +105,45 @@ class App extends React.Component {
   editEventName(event) {
     let newEvents = [...this.state.events];
     newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].name = event.target.value;
-    
-    console.log(newEvents);
     this.setState({events: newEvents});
   }
 
   editEventNotes(event) {
     let newEvents = [...this.state.events];
     newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].notes = event.target.value;
-    console.log(newEvents);
     this.setState({events: newEvents});
   }
 
   editEventId(event) {
     let newEvents = [...this.state.events];
-    newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].id = event.target.value.toLowerCase().replace(/\s/g, "-");
-    console.log(newEvents);
+    let newId = event.target.value.toLowerCase().replace(/\s/g, "-");
+    let idCopies = 0;
+    newEvents.map(e => {
+      if (e.id !== event.target.parentElement.id && e.id === newId) {
+        idCopies++;
+        newId = idCopies === 1 ? newId + "-" + idCopies : newId.slice(0, newId.length - 1) + idCopies;
+      };
+      return newId;
+    });
+    newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].id = newId;
     this.setState({events: newEvents});
   }
 
   newEvent() {
     let newEvents = [...this.state.events];
     newEvents.splice(newEvents.length - 1, 0, {id: `event-${newEvents.length}`, name: `Event ${newEvents.length}`, notes: ""});
+    let newId = newEvents[newEvents.length - 2].id;
+    let idCopies = 0;
+    newEvents.map(e => {
+      if (e.id === newId && e !== newEvents[newEvents.length - 2]) {
+        idCopies++;
+        newId = idCopies === 1 ? newId + "-" + idCopies : newId.slice(0, newId.length - 1) + idCopies;
+      };
+      return newId;
+    });
+    newEvents[newEvents.length - 2].id = newId;
     this.setState({events: newEvents});
+    console.log(this.state.events);
   }
 
   render() {
