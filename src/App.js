@@ -58,7 +58,9 @@ class App extends React.Component {
     this.triggerEvent = this.triggerEvent.bind(this);
     this.setEventStart = this.setEventStart.bind(this);
     this.setActiveEvent = this.setActiveEvent.bind(this);
-    this.editEvent = this.editEvent.bind(this);
+    this.editEventName = this.editEventName.bind(this);
+    this.editEventNotes = this.editEventNotes.bind(this);
+    this.editEventId = this.editEventId.bind(this);
   }
 
   editLibrary(array) {
@@ -99,8 +101,26 @@ class App extends React.Component {
     }
   };
 
-  editEvent(event) {
-    console.log(event.target.value);
+  editEventName(event) {
+    let newEvents = [...this.state.events];
+    newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].name = event.target.value;
+    
+    console.log(newEvents);
+    this.setState({events: newEvents});
+  }
+
+  editEventNotes(event) {
+    let newEvents = [...this.state.events];
+    newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].notes = event.target.value;
+    console.log(newEvents);
+    this.setState({events: newEvents});
+  }
+
+  editEventId(event) {
+    let newEvents = [...this.state.events];
+    newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].id = event.target.value.toLowerCase().replace(/\s/g, "-");
+    console.log(newEvents);
+    this.setState({events: newEvents});
   }
 
   render() {
@@ -108,7 +128,7 @@ class App extends React.Component {
       <div id="app">
         My React App!
         <Library library={this.state.library} editLibrary={this.editLibrary} />
-        <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEvent={this.editEvent} />
+        <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEventName={this.editEventName} editEventNotes={this.editEventNotes} editEventId={this.editEventId} />
       </div>
     );
   }

@@ -61,7 +61,7 @@ class EventTimeline extends React.Component {
                         if (event.id === "end") {
                             return <div key={event.id} id={event.id} name={event.name} />
                         } else {
-                            return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} editEvent={this.props.editEvent} />
+                            return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} editEventName={this.props.editEventName} editEventNotes={this.props.editEventNotes} editEventId={this.props.editEventId} />
                         }
                     })}
                 </div>
@@ -70,12 +70,11 @@ class EventTimeline extends React.Component {
     };
 };
 
-// PROBLEM with input and textarea elements not editable
 const EventComponent = (props) => {
     return (
         <div className="event" id={props.id}>
-            <input className="event-name" type="text" value={props.name} onChange={props.editEvent} />
-            <textarea className="event-notes" value={props.notes} onChange={props.editEvent} />
+            <input className="event-name" type="text" value={props.name} onChange={props.editEventName} onBlur={props.editEventId} onKeyDown={(event) => event.keyCode === 13 ? props.editEventId : props.editEventName} />
+            <textarea className="event-notes" value={props.notes} onChange={props.editEventNotes} />
         </div>
     );
 };
