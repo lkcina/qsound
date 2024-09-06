@@ -59,7 +59,12 @@ class EventTimeline extends React.Component {
                     <div id="event-line"></div>
                     {this.props.events.map(event => {
                         if (event.id === "end") {
-                            return <div key={event.id} id={event.id} name={event.name} />
+                            return (
+                            <div key={event.id} id={event.id} name={event.name}>
+                                <div id="new-event" onClick={this.props.newEvent}>+</div>
+                                <div id={event.id} name={event.name}></div>
+                            </div>
+                        );
                         } else {
                             return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} editEventName={this.props.editEventName} editEventNotes={this.props.editEventNotes} editEventId={this.props.editEventId} />
                         }

@@ -61,6 +61,7 @@ class App extends React.Component {
     this.editEventName = this.editEventName.bind(this);
     this.editEventNotes = this.editEventNotes.bind(this);
     this.editEventId = this.editEventId.bind(this);
+    this.newEvent = this.newEvent.bind(this);
   }
 
   editLibrary(array) {
@@ -123,12 +124,18 @@ class App extends React.Component {
     this.setState({events: newEvents});
   }
 
+  newEvent() {
+    let newEvents = [...this.state.events];
+    newEvents.splice(newEvents.length - 1, 0, {id: `event-${newEvents.length}`, name: `Event ${newEvents.length}`, notes: ""});
+    this.setState({events: newEvents});
+  }
+
   render() {
     return (
       <div id="app">
         My React App!
         <Library library={this.state.library} editLibrary={this.editLibrary} />
-        <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEventName={this.editEventName} editEventNotes={this.editEventNotes} editEventId={this.editEventId} />
+        <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEventName={this.editEventName} editEventNotes={this.editEventNotes} editEventId={this.editEventId} newEvent={this.newEvent}/>
       </div>
     );
   }
