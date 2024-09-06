@@ -1,9 +1,18 @@
 #library {
-    width: 300px;
+    width: 20%;
+    min-width: 150px;
+    max-width: 300px;
     height: 99%;
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 0;
+  }
+
+#library .toolbar {
+    display: flex;
+    justify-content: right;
+    height: 20px;
+    margin-bottom: 5px;
   }
   
   #library .toolbar .add-audio-btn {
@@ -20,12 +29,6 @@
   
   #library .audio-file-container {
     height: calc(100% - 65px);
-    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
-    border: 2px solid rgb(150, 150, 150);
-    border-top: 2px solid rgb(100, 100, 100);
-    border-left: 2px solid rgb(100, 100, 100);
-    border-radius: 5px;
-    padding: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;

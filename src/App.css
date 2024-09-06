@@ -7,14 +7,22 @@
   margin: 0;
 }
 
-body {
+#app {
   background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
   font-family: Arial, sans-serif;
+  width: 100vw;
+  min-width: 650px;
+  height: 100vh;
+  min-height: 650px;
+  position: relative;
 }
 
 .window {
   background: linear-gradient(120deg, rgb(100, 100, 100), rgb(50, 50, 50));
   border-radius: 10px;
+  border: 2px solid rgb(150, 150, 150);
+  border-bottom: 2px solid rgb(50, 50, 50);
+  border-right: 2px solid rgb(50, 50, 50);
   margin: 5px;
   padding: 5px;
 }
@@ -26,9 +34,11 @@ body {
   height: 30px;
 }
 
-.window .toolbar {
-  display: flex;
-  justify-content: right;
-  height: 20px;
-  margin-bottom: 5px;
+.container {
+  background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+  border: 2px solid rgb(150, 150, 150);
+  border-top: 2px solid rgb(50, 50, 50);
+  border-left: 2px solid rgb(50, 50, 50);
+  border-radius: 5px;
+  padding: 5px;
 }

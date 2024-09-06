@@ -45,7 +45,7 @@ class Library extends React.Component {
           <div className="toolbar">
             <button className="add-audio-btn" onClick={this.addAudioFile}>+</button>
           </div>
-          <div className="audio-file-container">
+          <div className="audio-file-container container">
             {this.props.library.map(audioFile => (
   
               <AudioFile key={audioFile.id} id={audioFile.id} name={audioFile.name} src={audioFile.src} playAudioFile={this.playAudioFile} delAudioFile={this.delAudioFile}/>

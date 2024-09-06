@@ -1,4 +1,19 @@
 #event-timeline {
-    font-family: Arial, sans-serif;
+    width: calc(80% - 100px);
+    min-width: 400px;
+    height: 30%;
+    min-height: 150px;
+    max-height: 300px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
 
+#event-timeline .toolbar {
+    height: 50px;
+}
+
+#event-list {
+    height: calc(100% - 50px);
+    overflow-y: scroll;
 }

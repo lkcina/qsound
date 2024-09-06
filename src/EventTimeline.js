@@ -55,7 +55,7 @@ class EventTimeline extends React.Component {
                     </div>
                     <div id="timer"></div>
                 </div>
-                <div id="event-list">
+                <div id="event-list" className="container">
                     <div id="start" name="Start"></div>
                     <div id="event-line"></div>
                     {this.props.events.map(event => {
