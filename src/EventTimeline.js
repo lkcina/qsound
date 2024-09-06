@@ -1,4 +1,5 @@
 import "./EventTimeline.css";
+import "./App.css";
 import React from "react";
 
 class EventTimeline extends React.Component {
@@ -30,7 +31,7 @@ class EventTimeline extends React.Component {
 
     render() {
         return (
-            <div id="event-timeline">
+            <div id="event-timeline" className="window">
                 <div className="toolbar">
                     <div id="mode-controls">
                         <button id="mode-toggle" onClick={this.props.toggleMode}>{this.props.mode === "create" ? "Present" : "Create"}</button>
