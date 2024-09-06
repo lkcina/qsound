@@ -121,7 +121,6 @@
     width: fit-content;
     display: flex;
     align-items: center;
-    gap: 50px;
 }
 
 #start, #end {
@@ -151,7 +150,6 @@
     height: 30px;
     width: 30px;
     background: rgb(200, 200, 200);
-    margin-right: 50px;
     border-radius: 50%;
     color: rgb(100, 100, 100);
     text-align: center;
@@ -167,17 +165,59 @@
     cursor: pointer;
 }
 
-#event-line {
+.event-container {
+    display: flex;
+    align-items: center;
+}
+
+.event-line {
     height: 15px;
-    position: absolute;
-    left: 60px;
+    width: 60px;
+    margin: 0 -5px;
     background-color: rgb(100, 100, 100);
     z-index: 1;
 }
 
 .event {
-    width: 150px;
+    height: 125px;
+    width: 125px;
+    background: linear-gradient(120deg, rgb(100, 100, 100), rgb(50, 50, 50));
+    border-radius: 10px;
+    border: 2px solid rgb(150, 150, 150);
+    border-bottom: 2px solid rgb(50, 50, 50);
+    border-right: 2px solid rgb(50, 50, 50);
     z-index: 2;
+    padding: 5px;
+}
+
+.event input {
+    height: 25px;
+    width: 100%;
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: 2px solid rgb(150, 150, 150);
+    border-top: 2px solid rgb(50, 50, 50);
+    border-left: 2px solid rgb(50, 50, 50);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    color: rgb(200, 200, 200);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.event textarea {
+    height: 80px;
+    width: 100%;
+    background: none;
+    color: rgb(230, 230, 230);
+    border: none;
+    resize: none;
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+}
+
+.event textarea::placeholder {
+    color: rgb(200, 200, 200);
 }
 
 .active {

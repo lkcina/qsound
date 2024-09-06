@@ -30,8 +30,6 @@ class EventTimeline extends React.Component {
     }
 
     render() {
-        const eventLineWidth = JSON.stringify((this.props.events.length * 200) - 65) + "px";
-
         return (
             <div id="event-timeline" className="window">
                 <div className="toolbar">
@@ -60,12 +58,13 @@ class EventTimeline extends React.Component {
                 <div id="event-list-container" className="container">
                     <div id="event-list">
                         <div id="start" name="Start">Start</div>
-                        <div id="event-line" style={{width: eventLineWidth}}></div>
+                        <div className="event-line"></div>
                         {this.props.events.map(event => {
                             if (event.id === "end") {
                                 return (
                                 <div key={event.id} id="end-timeline" name={event.name}>
-                                    <div id="new-event" onClick={this.props.newEvent}>+</div>
+                                    <div id="new-event" onClick={this.props.newEvent} style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}>+</div>
+                                    <div className="event-line" style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}></div>
                                     <div id={event.id} name={event.name} className={this.props.activeEvent.id === event.id ? "active" : ""}>End</div>
                                 </div>
                             );
@@ -82,9 +81,12 @@ class EventTimeline extends React.Component {
 
 const EventComponent = (props) => {
     return (
-        <div className={props.activeEvent.id === props.id ? "event active" : "event"} id={props.id}>
-            <input className="event-name" type="text" value={props.name} onChange={props.editEventName} onBlur={props.editEventId} onKeyDown={(event) => event.keyCode === 13 ? props.editEventId : props.editEventName} />
-            <textarea className="event-notes" value={props.notes} onChange={props.editEventNotes} />
+        <div className="event-container">
+            <div className={props.activeEvent.id === props.id ? "event active" : "event"} id={props.id}>
+                <input className="event-name" type="text" value={props.name} onChange={props.editEventName} onBlur={props.editEventId} onKeyDown={(event) => event.keyCode === 13 ? props.editEventId : props.editEventName} />
+                <textarea className="event-notes" value={props.notes} onChange={props.editEventNotes} placeholder="Notes"/>
+            </div>
+            <div className="event-line"></div>
         </div>
     );
 };
