@@ -34,7 +34,7 @@ class EventTimeline extends React.Component {
             <div id="event-timeline" className="window">
                 <div className="toolbar">
                     <div id="mode-controls">
-                        <button id="mode-toggle" onClick={this.props.toggleMode}>{this.props.mode === "create" ? "Present" : "Create"}</button>
+                        <button id="mode-toggle" className={this.props.mode === "present" ? "present" : ""} onClick={this.props.toggleMode}>P</button>
                         <select id="event-start" onChange={this.props.setEventStart} value={this.props.eventStart.id}>
                             {this.props.events.map(event => {
                                 return <option key={event.id} value={event.id}>{event.name}</option>
@@ -42,7 +42,7 @@ class EventTimeline extends React.Component {
                         </select>
                     </div>
                     <div id="trigger-controls">
-                        <button id="trigger-event" onClick={this.props.triggerEvent}>Trigger Event</button>
+                        <button id="trigger-event" onClick={this.props.triggerEvent}>Tr</button>
                         <div id="active-event-controls">
                             <button class="previous-event" onClick={this.previousEvent}>&lt;</button>
                             <select id="active-event" onChange={this.props.setActiveEvent} value={this.props.activeEvent.id}>
@@ -53,7 +53,7 @@ class EventTimeline extends React.Component {
                             <button class="next-event" onClick={this.nextEvent}>&gt;</button>
                         </div>
                     </div>
-                    <div id="timer"></div>
+                    <div id="timer">00:00:00.00</div>
                 </div>
                 <div id="event-list" className="container">
                     <div id="start" name="Start"></div>

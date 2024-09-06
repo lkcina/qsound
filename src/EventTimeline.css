@@ -1,7 +1,7 @@
 #event-timeline {
     width: calc(80% - 100px);
     min-width: 400px;
-    height: 30%;
+    height: 35%;
     min-height: 150px;
     max-height: 300px;
     position: absolute;
@@ -11,11 +11,109 @@
 
 #event-timeline .toolbar {
     height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mode-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mode-controls button {
+    height: 40px;
+    width: 40px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    color: rgb(230, 230, 230);
+    font-size: 3rem;
+}
+
+#mode-controls button:hover {
+    color: rgb(100, 200, 100);
+    cursor: pointer;
+}
+
+#mode-controls button.present {
+    color: rgb(50, 50, 50);
+    background: linear-gradient(120deg, rgb(100, 220, 100), rgb(80, 150, 80));
+}
+
+#mode-controls select, #trigger-controls select {
+    height: 30px;
+    width: auto;
+    max-width: 150px;
+    min-width: 100px;
+    font-size: 1.5rem;
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: none;
+    border-radius: 5px;
+    color: rgb(230, 230, 230);
+}
+
+#trigger-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#trigger-event {
+    height: 40px;
+    width: 40px;
+    background: linear-gradient(120deg, rgb(213, 193, 121), rgb(151, 138, 92));
+    font-size: 3rem;
+    color: rgb(50, 50, 50);
+    border-radius: 5px;
+    border: none;
+}
+
+#trigger-event:hover {
+    cursor: pointer;
+}
+
+#trigger-event:active {
+    color: rgb(20, 20, 20);
+    background: linear-gradient(120deg, rgb(151, 138, 92), rgb(213, 193, 121));
+}
+
+#active-event-controls {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+#active-event-controls button {
+    height: 30px;
+    width: 20px;
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: none;
+    border-radius: 5px;
+    color: rgb(200, 200, 200);
+    font-size: 2rem;
+}
+
+#active-event-controls button:hover {
+    color: rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+#timer {
+    height: 40px;
+    font-size: 4rem;
+    color: rgb(230, 230, 230);
+    text-align: right;
+    vertical-align: middle;
 }
 
 #event-list {
     height: calc(100% - 50px);
-    overflow-y: scroll;
+    overflow-x: auto;
 }
 
 .active {
