@@ -1,0 +1,225 @@
+#event-timeline {
+    width: calc(80% - 100px);
+    min-width: 400px;
+    height: 35%;
+    min-height: 150px;
+    max-height: 300px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#event-timeline .toolbar {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mode-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mode-controls button {
+    height: 40px;
+    width: 40px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    color: rgb(230, 230, 230);
+    font-size: 3rem;
+}
+
+#mode-controls button:hover {
+    color: rgb(100, 200, 100);
+    cursor: pointer;
+}
+
+#mode-controls button.present {
+    color: rgb(50, 50, 50);
+    background: linear-gradient(120deg, rgb(100, 220, 100), rgb(80, 150, 80));
+}
+
+#mode-controls select, #trigger-controls select {
+    height: 30px;
+    width: auto;
+    max-width: 150px;
+    min-width: 100px;
+    font-size: 1.5rem;
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: none;
+    border-radius: 5px;
+    color: rgb(230, 230, 230);
+}
+
+#trigger-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#trigger-event {
+    height: 40px;
+    width: 40px;
+    background: linear-gradient(120deg, rgb(213, 193, 121), rgb(151, 138, 92));
+    font-size: 3rem;
+    color: rgb(50, 50, 50);
+    border-radius: 5px;
+    border: none;
+}
+
+#trigger-event:hover {
+    cursor: pointer;
+}
+
+#trigger-event:active {
+    color: rgb(20, 20, 20);
+    background: linear-gradient(120deg, rgb(151, 138, 92), rgb(213, 193, 121));
+}
+
+#active-event-controls {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+#active-event-controls button {
+    height: 30px;
+    width: 20px;
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: none;
+    border-radius: 5px;
+    color: rgb(200, 200, 200);
+    font-size: 2rem;
+}
+
+#active-event-controls button:hover {
+    color: rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+#timer {
+    height: 40px;
+    font-size: 4rem;
+    color: rgb(230, 230, 230);
+    text-align: right;
+    vertical-align: middle;
+}
+
+#event-list-container {
+    height: calc(100% - 50px);
+    overflow-x: auto;
+}
+
+#event-list {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+#start, #end {
+    height: 50px;
+    width: 50px;
+    min-width: 50px;
+    background-color: rgb(100, 100, 100);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.5rem;
+    color: rgb(230, 230, 230);
+    z-index: 0;
+}
+
+#end-timeline {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+#end-timeline div {
+    display: inline-block;
+}
+
+#new-event {
+    height: 30px;
+    width: 30px;
+    background: rgb(200, 200, 200);
+    border-radius: 50%;
+    color: rgb(100, 100, 100);
+    text-align: center;
+    line-height: 30px;
+    font-size: 3rem;
+    box-shadow: 0 0 4px 5px rgb(200, 200, 200);
+    z-index: 2;
+}
+
+#new-event:hover {
+    background: rgb(230, 230, 230);
+    box-shadow: 0 0 5px 6px rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+.event-container {
+    display: flex;
+    align-items: center;
+}
+
+.event-line {
+    height: 15px;
+    width: 60px;
+    margin: 0 -5px;
+    background-color: rgb(100, 100, 100);
+    z-index: 1;
+}
+
+.event {
+    height: 125px;
+    width: 125px;
+    background: linear-gradient(120deg, rgb(100, 100, 100), rgb(50, 50, 50));
+    border-radius: 10px;
+    border: 2px solid rgb(150, 150, 150);
+    border-bottom: 2px solid rgb(50, 50, 50);
+    border-right: 2px solid rgb(50, 50, 50);
+    z-index: 2;
+    padding: 5px;
+}
+
+.event input {
+    height: 25px;
+    width: 100%;
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: 2px solid rgb(150, 150, 150);
+    border-top: 2px solid rgb(50, 50, 50);
+    border-left: 2px solid rgb(50, 50, 50);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    color: rgb(200, 200, 200);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.event textarea {
+    height: 80px;
+    width: 100%;
+    background: none;
+    color: rgb(230, 230, 230);
+    border: none;
+    resize: none;
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+}
+
+.event textarea::placeholder {
+    color: rgb(200, 200, 200);
+}
+
+.active {
+    box-shadow: 0 0 5px 3px rgb(213, 193, 121);
+}
