@@ -40,8 +40,8 @@ class App extends React.Component {
         notes: ""
       },
       activeEvent: {
-        id: "end",
-        name: "End",
+        id: "start",
+        name: "Start",
         notes: ""
       },
       cues: [],
