@@ -7,6 +7,7 @@ class EventTimeline extends React.Component {
         super(props);
         this.previousEvent = this.previousEvent.bind(this);
         this.nextEvent = this.nextEvent.bind(this);
+        this.startTimer = this.startTimer.bind(this);
     }
 
     previousEvent(event) {
@@ -29,6 +30,30 @@ class EventTimeline extends React.Component {
         document.getElementById("active-event").dispatchEvent(change);
     }
 
+    startTimer() {
+        console.log(this.props.events[this.props.events.indexOf(this.props.activeEvent) - 1]);
+        if (this.props.eventStart === this.props.activeEvent) {
+            let time = 0;
+            const interval = setInterval(() => {
+                time += 10;
+                const hours = Math.floor(time / 3600000);
+                const minutes = Math.floor(time / 60000) % 60;
+                const seconds = Math.floor(time / 1000) % 60;
+                const centiseconds = Math.floor(time / 10) % 100;
+                if (this.props.mode === "create") {
+                    document.getElementById("timer").textContent = "00:00:00.00";
+                    time = 0;
+                    clearInterval(interval);
+                    return;
+                } else {
+                    document.getElementById("timer").textContent = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds) + "." + (centiseconds < 10 ? "0" + centiseconds : centiseconds);
+                }
+            }, 10);
+        } else {
+            document.getElementById("timer").textContent = "00:00:00.00";
+        };
+    }
+
     render() {
         return (
             <div id="event-timeline" className="window">
@@ -42,7 +67,10 @@ class EventTimeline extends React.Component {
                         </select>
                     </div>
                     <div id="trigger-controls">
-                        <button id="trigger-event" onClick={this.props.triggerEvent} style={{ visibility: this.props.mode === "create" ? "hidden" : "visible" }}>Tr</button>
+                        <button id="trigger-event" onClick={() => {
+                            this.props.triggerEvent();
+                            this.startTimer();
+                        }} style={{ visibility: this.props.mode === "create" ? "hidden" : "visible" }}>Tr</button>
                         <div id="active-event-controls">
                             <button class="previous-event" onClick={this.previousEvent}>&lt;</button>
                             <select id="active-event" onChange={this.props.setActiveEvent} value={this.props.activeEvent.id}>
