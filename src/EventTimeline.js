@@ -31,8 +31,7 @@ class EventTimeline extends React.Component {
     }
 
     startTimer() {
-        console.log(this.props.events[this.props.events.indexOf(this.props.activeEvent) - 1]);
-        if (this.props.eventStart === this.props.activeEvent) {
+        if (this.props.eventStart === this.props.activeEvent && this.props.activeEvent.id !== "end") {
             let time = 0;
             const interval = setInterval(() => {
                 time += 10;
@@ -42,15 +41,25 @@ class EventTimeline extends React.Component {
                 const centiseconds = Math.floor(time / 10) % 100;
                 if (this.props.mode === "create") {
                     document.getElementById("timer").textContent = "00:00:00.00";
+                    document.querySelectorAll(".time-stamp").forEach(timeStamp => {
+                        timeStamp.textContent = "";
+                    });
                     time = 0;
                     clearInterval(interval);
                     return;
                 } else {
                     document.getElementById("timer").textContent = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds) + "." + (centiseconds < 10 ? "0" + centiseconds : centiseconds);
                 }
+                
             }, 10);
-        } else {
+            document.getElementById(this.props.activeEvent.id).querySelector(".time-stamp").textContent = document.getElementById("timer").textContent;
+        } else if (this.props.activeEvent.id === "end") {
             document.getElementById("timer").textContent = "00:00:00.00";
+            document.querySelectorAll(".time-stamp").forEach(timeStamp => {
+                timeStamp.textContent = "";
+            });
+        } else {
+            document.getElementById(this.props.activeEvent.id).querySelector(".time-stamp").textContent = document.getElementById("timer").textContent;
         };
     }
 
@@ -110,7 +119,9 @@ class EventTimeline extends React.Component {
 const EventComponent = (props) => {
     return (
         <div className="event-container">
+            
             <div className={props.activeEvent.id === props.id ? "event active" : "event"} id={props.id}>
+                <div className="time-stamp"></div>
                 <input className="event-name" type="text" value={props.name} onChange={props.editEventName} onBlur={props.editEventId} onKeyDown={(event) => event.keyCode === 13 ? props.editEventId : props.editEventName} />
                 <textarea className="event-notes" value={props.notes} onChange={props.editEventNotes} placeholder="Notes"/>
             </div>
