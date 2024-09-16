@@ -8,6 +8,11 @@ class EventTimeline extends React.Component {
         this.previousEvent = this.previousEvent.bind(this);
         this.nextEvent = this.nextEvent.bind(this);
         this.startTimer = this.startTimer.bind(this);
+        this.editEventName = this.editEventName.bind(this);
+        this.editEventNotes = this.editEventNotes.bind(this);
+        this.editEventId = this.editEventId.bind(this);
+        this.newEvent = this.newEvent.bind(this);
+        this.deleteEvent = this.deleteEvent.bind(this);
     }
 
     previousEvent(event) {
@@ -28,6 +33,58 @@ class EventTimeline extends React.Component {
         };
         const change = new Event('change', { bubbles: true });
         document.getElementById("active-event").dispatchEvent(change);
+    }
+
+    editEventName(event) {
+        let newEvents = [...this.props.events];
+        newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].name = event.target.value;
+        this.props.editEvents(newEvents);
+    }
+
+    editEventNotes(event) {
+        let newEvents = [...this.props.events];
+        newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].notes = event.target.value;
+        this.props.editEvents(newEvents);
+    }
+
+    editEventId(event) {
+        let newEvents = [...this.props.events];
+        let newId = event.target.value.toLowerCase().replace(/\s/g, "-");
+        let idCopies = 0;
+        newEvents.map(e => {
+          if (e.id !== event.target.parentElement.id && e.id === newId) {
+            idCopies++;
+            newId = idCopies === 1 ? newId + "-" + idCopies : newId.slice(0, newId.length - 1) + idCopies;
+          };
+          return newId;
+        });
+        newEvents[newEvents.findIndex(e => e.id === event.target.parentElement.id)].id = newId;
+        this.props.editEvents(newEvents);
+    }
+
+    newEvent() {
+        let newEvents = [...this.props.events];
+        newEvents.splice(newEvents.length - 1, 0, {id: `event-${newEvents.length}`, name: `Event ${newEvents.length}`, notes: ""});
+        let newId = newEvents[newEvents.length - 2].id;
+        let idCopies = 0;
+        newEvents.map(e => {
+          if (e.id === newId && e !== newEvents[newEvents.length - 2]) {
+            idCopies++;
+            newId = idCopies === 1 ? newId + "-" + idCopies : newId.slice(0, newId.length - 1) + idCopies;
+          };
+          return newId;
+        });
+        newEvents[newEvents.length - 2].id = newId;
+        this.props.editEvents(newEvents);
+    }
+    
+    deleteEvent() {
+        let newEvents = [...this.props.events];
+        const newActiveEvent = newEvents[newEvents.findIndex(e => e.id === this.props.activeEvent.id) + 1];
+        console.log(newActiveEvent);
+        newEvents.splice(newEvents.findIndex(e => e.id === this.props.activeEvent.id), 1);
+        this.props.editEvents(newEvents);
+        this.props.setActiveEvent({target: {value: newActiveEvent.id}});
     }
 
     startTimer() {
@@ -100,13 +157,13 @@ class EventTimeline extends React.Component {
                             if (event.id === "end") {
                                 return (
                                 <div key={event.id} id="end-timeline" name={event.name}>
-                                    <div id="new-event" onClick={this.props.newEvent} style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}>+</div>
+                                    <div id="new-event" onClick={this.newEvent} style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}>+</div>
                                     <div className="event-line" style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}></div>
                                     <div id={event.id} name={event.name} className={this.props.activeEvent.id === event.id ? "active" : ""}>End</div>
                                 </div>
                             );
                             } else {
-                                return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} activeEvent={this.props.activeEvent} editEventName={this.props.editEventName} editEventNotes={this.props.editEventNotes} editEventId={this.props.editEventId} />
+                                return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} activeEvent={this.props.activeEvent} editEventName={this.editEventName} editEventNotes={this.editEventNotes} editEventId={this.editEventId} deleteEvent={this.deleteEvent}/>
                             }
                         })}
                     </div>
@@ -122,6 +179,7 @@ const EventComponent = (props) => {
             
             <div className={props.activeEvent.id === props.id ? "event active" : "event"} id={props.id}>
                 <div className="time-stamp"></div>
+                <button className="event-del-btn" onClick={props.deleteEvent}>X</button>
                 <input className="event-name" type="text" value={props.name} onChange={props.editEventName} onBlur={props.editEventId} onKeyDown={(event) => event.keyCode === 13 ? props.editEventId : props.editEventName} />
                 <textarea className="event-notes" value={props.notes} onChange={props.editEventNotes} placeholder="Notes"/>
             </div>

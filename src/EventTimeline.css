@@ -204,6 +204,24 @@
     font-size: 1.5rem;
 }
 
+.event-del-btn {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    color: rgb(150, 150, 150);
+    background: none;
+    border: none;
+    font-size: 2rem;
+    display: none;
+}
+
+.event-del-btn:hover {
+    color: rgb(200, 100, 100);
+    cursor: pointer;
+}
+
 .event input {
     height: 25px;
     width: 100%;
@@ -236,4 +254,8 @@
 
 .active {
     box-shadow: 0 0 5px 3px rgb(213, 193, 121);
+}
+
+.active .event-del-btn {
+    display: block;
 }
