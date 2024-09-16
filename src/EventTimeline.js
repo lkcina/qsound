@@ -42,7 +42,7 @@ class EventTimeline extends React.Component {
                         </select>
                     </div>
                     <div id="trigger-controls">
-                        <button id="trigger-event" onClick={this.props.triggerEvent}>Tr</button>
+                        <button id="trigger-event" onClick={this.props.triggerEvent} style={{ visibility: this.props.mode === "create" ? "hidden" : "visible" }}>Tr</button>
                         <div id="active-event-controls">
                             <button class="previous-event" onClick={this.previousEvent}>&lt;</button>
                             <select id="active-event" onChange={this.props.setActiveEvent} value={this.props.activeEvent.id}>
