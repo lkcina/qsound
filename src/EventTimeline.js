@@ -7,6 +7,7 @@ class EventTimeline extends React.Component {
         super(props);
         this.previousEvent = this.previousEvent.bind(this);
         this.nextEvent = this.nextEvent.bind(this);
+        this.startTimer = this.startTimer.bind(this);
     }
 
     previousEvent(event) {
@@ -29,6 +30,39 @@ class EventTimeline extends React.Component {
         document.getElementById("active-event").dispatchEvent(change);
     }
 
+    startTimer() {
+        if (this.props.eventStart === this.props.activeEvent && this.props.activeEvent.id !== "end") {
+            let time = 0;
+            const interval = setInterval(() => {
+                time += 10;
+                const hours = Math.floor(time / 3600000);
+                const minutes = Math.floor(time / 60000) % 60;
+                const seconds = Math.floor(time / 1000) % 60;
+                const centiseconds = Math.floor(time / 10) % 100;
+                if (this.props.mode === "create") {
+                    document.getElementById("timer").textContent = "00:00:00.00";
+                    document.querySelectorAll(".time-stamp").forEach(timeStamp => {
+                        timeStamp.textContent = "";
+                    });
+                    time = 0;
+                    clearInterval(interval);
+                    return;
+                } else {
+                    document.getElementById("timer").textContent = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds) + "." + (centiseconds < 10 ? "0" + centiseconds : centiseconds);
+                }
+                
+            }, 10);
+            document.getElementById(this.props.activeEvent.id).querySelector(".time-stamp").textContent = document.getElementById("timer").textContent;
+        } else if (this.props.activeEvent.id === "end") {
+            document.getElementById("timer").textContent = "00:00:00.00";
+            document.querySelectorAll(".time-stamp").forEach(timeStamp => {
+                timeStamp.textContent = "";
+            });
+        } else {
+            document.getElementById(this.props.activeEvent.id).querySelector(".time-stamp").textContent = document.getElementById("timer").textContent;
+        };
+    }
+
     render() {
         return (
             <div id="event-timeline" className="window">
@@ -42,7 +76,10 @@ class EventTimeline extends React.Component {
                         </select>
                     </div>
                     <div id="trigger-controls">
-                        <button id="trigger-event" onClick={this.props.triggerEvent} style={{ visibility: this.props.mode === "create" ? "hidden" : "visible" }}>Tr</button>
+                        <button id="trigger-event" onClick={() => {
+                            this.props.triggerEvent();
+                            this.startTimer();
+                        }} style={{ visibility: this.props.mode === "create" ? "hidden" : "visible" }}>Tr</button>
                         <div id="active-event-controls">
                             <button class="previous-event" onClick={this.previousEvent}>&lt;</button>
                             <select id="active-event" onChange={this.props.setActiveEvent} value={this.props.activeEvent.id}>
@@ -82,7 +119,9 @@ class EventTimeline extends React.Component {
 const EventComponent = (props) => {
     return (
         <div className="event-container">
+            
             <div className={props.activeEvent.id === props.id ? "event active" : "event"} id={props.id}>
+                <div className="time-stamp"></div>
                 <input className="event-name" type="text" value={props.name} onChange={props.editEventName} onBlur={props.editEventId} onKeyDown={(event) => event.keyCode === 13 ? props.editEventId : props.editEventName} />
                 <textarea className="event-notes" value={props.notes} onChange={props.editEventNotes} placeholder="Notes"/>
             </div>

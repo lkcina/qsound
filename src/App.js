@@ -50,8 +50,7 @@ class App extends React.Component {
         notes: ""
       },
       cues: [],
-      static: [],
-      timer: 0
+      static: []
     };
 
     this.editLibrary = this.editLibrary.bind(this);
