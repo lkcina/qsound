@@ -64,7 +64,7 @@ class EventTimeline extends React.Component {
 
     newEvent() {
         let newEvents = [...this.props.events];
-        newEvents.splice(newEvents.length - 1, 0, {id: `event-${newEvents.length}`, name: `Event ${newEvents.length}`, notes: ""});
+        newEvents.splice(newEvents.length - 1, 0, {id: `event-${newEvents.length}`, name: `Event ${newEvents.length - 1}`, notes: ""});
         let newId = newEvents[newEvents.length - 2].id;
         let idCopies = 0;
         newEvents.map(e => {
@@ -109,13 +109,17 @@ class EventTimeline extends React.Component {
                 }
                 
             }, 10);
-            document.getElementById(this.props.activeEvent.id).querySelector(".time-stamp").textContent = document.getElementById("timer").textContent;
+            if (this.props.activeEvent.id !== "start") {
+                document.getElementById(this.props.activeEvent.id).querySelector(".time-stamp").textContent = document.getElementById("timer").textContent;
+            } else {
+                return;
+            }
         } else if (this.props.activeEvent.id === "end") {
             document.getElementById("timer").textContent = "00:00:00.00";
             document.querySelectorAll(".time-stamp").forEach(timeStamp => {
                 timeStamp.textContent = "";
             });
-        } else {
+        } else if (this.props.activeEvent.id !== "start") {
             document.getElementById(this.props.activeEvent.id).querySelector(".time-stamp").textContent = document.getElementById("timer").textContent;
         };
     }
@@ -150,18 +154,23 @@ class EventTimeline extends React.Component {
                     <div id="timer">00:00:00.00</div>
                 </div>
                 <div id="event-list-container" className="container">
-                    <div id="event-list">
-                        <div id="start" name="Start">Start</div>
-                        <div className="event-line"></div>
+                    <div id="event-list">                        
                         {this.props.events.map(event => {
                             if (event.id === "end") {
                                 return (
-                                <div key={event.id} id="end-timeline" name={event.name}>
-                                    <div id="new-event" onClick={this.newEvent} style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}>+</div>
-                                    <div className="event-line" style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}></div>
-                                    <div id={event.id} name={event.name} className={this.props.activeEvent.id === event.id ? "active" : ""}>End</div>
-                                </div>
-                            );
+                                    <div key={event.id} id="end-timeline" name={event.name}>
+                                        <div id="new-event" onClick={this.newEvent} style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}>+</div>
+                                        <div className="event-line" style={this.props.mode === "present" ? {display: "none"} : {display: "block"}}></div>
+                                        <div id={event.id} name={event.name} className={this.props.activeEvent.id === event.id ? "active" : ""}>End</div>
+                                    </div>
+                                );
+                            } else if (event.id === "start") {
+                                return (
+                                    <div key={event.id} id={"start-timeline"} name={event.name}>
+                                        <div id={event.id} name={event.name} className={this.props.activeEvent.id === event.id ? "active" : ""}>Start</div>
+                                        <div className="event-line"></div>
+                                    </div>
+                                );
                             } else {
                                 return <EventComponent key={event.id} id={event.id} name={event.name} notes={event.notes} activeEvent={this.props.activeEvent} editEventName={this.editEventName} editEventNotes={this.editEventNotes} editEventId={this.editEventId} deleteEvent={this.deleteEvent}/>
                             }
