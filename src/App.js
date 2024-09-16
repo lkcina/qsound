@@ -24,13 +24,8 @@ class App extends React.Component {
       ],
       events: [
         {
-          id: "1",
-          name: "1",
-          notes: ""
-        },
-        {
-          id: "2",
-          name: "2",
+          id: "start",
+          name: "Start",
           notes: ""
         },
         {
@@ -40,8 +35,8 @@ class App extends React.Component {
         }
       ],
       eventStart: {
-        id: "end",
-        name: "End",
+        id: "start",
+        name: "Start",
         notes: ""
       },
       activeEvent: {
@@ -85,16 +80,16 @@ class App extends React.Component {
   };
 
   triggerEvent() {
+    console.log(this.state.events.indexOf(this.state.activeEvent));
     if (this.state.activeEvent.id === "end") {
       console.log("End of event timeline");
       this.setState({mode: "create", activeEvent: this.state.eventStart});
       return;
-    }
-    if (this.state.mode === "create") {
-      console.log("Triggering" + this.state.activeEvent.name);
-      return
+    } else if (this.state.activeEvent.id === "start") {
+      console.log("Triggering " + this.state.activeEvent.name + " and advancing to " + this.state.events[1].name);
+      this.setState({activeEvent: this.state.events[1]});
     } else {
-      console.log("Triggering" + this.state.activeEvent.name + " and advancing to " + this.state.events[this.state.events.indexOf(this.state.activeEvent) + 1].name);
+      console.log("Triggering " + this.state.activeEvent.name + " and advancing to " + this.state.events[this.state.events.indexOf(this.state.activeEvent) + 1].name);
       this.setState({activeEvent: this.state.events[this.state.events.indexOf(this.state.activeEvent) + 1]});
     }
   };

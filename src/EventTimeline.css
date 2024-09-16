@@ -137,9 +137,16 @@
     z-index: 0;
 }
 
-#end-timeline {
+#end-timeline, #start-timeline {
     display: flex;
     align-items: center;
+}
+
+#start-timeline {
+    margin-left: 5px;
+}
+
+#end-timeline {
     margin-right: 5px;
 }
 
