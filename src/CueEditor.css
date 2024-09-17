@@ -37,10 +37,12 @@
 
 .cue {
     height: max-content;
+    width: 170px;
     min-height: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    justify-content: space-between;
     background: linear-gradient(120deg, rgb(100, 100, 100), rgb(50, 50, 50));
     border-radius: 10px;
     border: 2px solid rgb(150, 150, 150);
@@ -76,6 +78,7 @@
     text-align: center;
     font-size: 1.2rem;
     font-weight: normal;
+    margin-bottom: 2px;
 }
 
 .cue-properties {
@@ -111,12 +114,49 @@
 
 .cue-src .input-selector {
     width: 100%;
-    margin: 2px auto 0;
 }
 
 .loop-property {
     display: none;
 }
+
+.cue .change {
+    border-bottom: 1px solid rgb(150, 150, 150);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.cue .delete-change-btn {
+    height: 15px;
+    width: 15px;
+    color: rgb(230, 230, 230);
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    position: relative;
+    left: 145px;
+}
+
+.cue .delete-change-btn:hover {
+    color: rgb(200, 100, 100);
+    cursor: pointer;
+}
+
+.cue .add-change-btn {
+    display: block;
+    height: 15px;
+    width: auto;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: rgb(150, 150, 150);
+    background: none;
+    border: none;
+}
+
+.cue .add-change-btn:hover {
+    color: rgb(200, 200, 200);
+    cursor: pointer;
+}   
 
 .cue .gain-slider {
     width: 20px;

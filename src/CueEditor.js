@@ -112,6 +112,7 @@ const Cue = (props) => {
                         <Change key={change.id} id={change.id} event={change.event} delay={change.delay} volume={change.volume} ramp={change.ramp} editCue={props.editCue} events={props.events}/>
                     )
                 })}
+                
                 <button className="add-change-btn" onClick={props.editCue}>+ Change</button>
             </div>
             <div className="cue-stop">
