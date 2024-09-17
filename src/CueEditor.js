@@ -117,4 +117,30 @@ const Cue = (props) => {
     )
 }
 
+const Change = (props) => {
+    return (
+        <div id={props.id} className="change">
+            <div className="change-event">
+                <select className="input-selector" value={props.event} onChange={props.editCue}>
+                    {props.events.map(event => {
+                        return (
+                            <option key={event.id} value={event.id}>{event.name}</option>
+                        )
+                    })}
+                </select>
+            </div>
+            <div className="change-delay">
+                <input type="number" className="input-number" value={props.delay} min="0" step="0.01" onChange={props.editCue}></input><span>s</span>
+            </div>
+            <div className="change-volume">
+                <input type="number" className="input-number" value={props.volume} min="0" max="2" step="0.01" onChange={props.editCue}></input>
+            </div>
+            <div className="change-ramp">
+                <input type="number" className="input-number" value={props.ramp} min="0" step="0.01" onChange={props.editCue}></input><span>s</span>
+            </div>
+            <button className="delete-change-btn" onClick={props.editCue}>X</button>
+        </div>
+    )
+}
+
 export default CueEditor;
