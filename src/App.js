@@ -1,4 +1,5 @@
 import './App.css';
+import CueEditor from "./CueEditor.js";
 import EventTimeline from "./EventTimeline.js";
 import Library from "./Library.js";
 import React from 'react';
@@ -44,7 +45,37 @@ class App extends React.Component {
         name: "Start",
         notes: ""
       },
-      cues: [],
+      cues: [
+        {
+          id: "cue-1",
+          src: "./test-library/Action_Adventure_Demo.wav",
+          start: {
+            event: "event-1",
+            location: 0,
+            delay: 2000,
+            volume: 1,
+            ramp: 0,
+            loop: false,
+            loopStart: 0,
+            loopEnd: 0
+          },
+          changes: [
+            {
+              id: "change-1",
+              event: "event-2",
+              delay: 0,
+              volume: 0.5,
+              ramp: 1000
+            }
+          ],
+          stop: {
+            event: "event-3",
+            delay: 0,
+            ramp: 2000
+          },
+          gain: 1
+        }
+      ],
       static: []
     };
 
