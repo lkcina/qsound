@@ -169,7 +169,7 @@
     width: 15px;
     height: 30px;
     margin-left: -6px;
-    background: linear-gradient(rgb(100, 100, 100), rgb(230, 230, 230) 3%, rgb(150, 150, 150) 48%, rgb(30, 30, 30) 49%, rgb(30, 30, 30) 51%, rgb(150, 150, 150) 52%, rgb(230, 230, 230) 97%, rgb(100, 100, 100));
+    background: linear-gradient(rgb(100, 100, 100), rgb(150, 150, 150) 7%, rgb(230, 230, 230) 8%, rgb(150, 150, 150) 48%, rgb(30, 30, 30) 49%, rgb(30, 30, 30) 51%, rgb(150, 150, 150) 52%, rgb(230, 230, 230) 92%, rgb(150, 150, 150) 93%, rgb(100, 100, 100));
     cursor: pointer;
 }
 
