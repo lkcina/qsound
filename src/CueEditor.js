@@ -60,7 +60,25 @@ const Cue = (props) => {
                     })}
                 </select>
                 <div className="cue-start-location">
-                    <input type="number" className="input-time" value={props.start.location} min="0" max={props.library[0].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
+                    <input type="number" className="input-number" value={props.start.location} min="0" max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
+                </div>
+                <div className="cue-start-delay">
+                    <input type="number" className="input-number" value={props.start.delay} min="0" step="0.01" onChange={props.editCue}></input><span>s</span>
+                </div>
+                <div className="cue-start-volume">
+                    <input type="number" className="input-number" value={props.start.volume} min="0" max="2" step="0.01" onChange={props.editCue}></input>
+                </div>
+                <div className="cue-start-ramp">
+                    <input type="number" className="input-number" value={props.start.ramp} min="0" max={(props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration - props.start.location) / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
+                </div>
+                <div className="cue-start-loop">
+                    <input type="checkbox" className="input-checkbox" checked={props.start.loop} onChange={props.editCue}></input><span>Loop</span>
+                </div>
+                <div className="cue-start-loop-start">
+                    <input type="number" className="input-number" value={props.start.loopStart} min="0" max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
+                </div>
+                <div className="cue-start-loop-end">
+                    <input type="number" className="input-number" value={props.start.loopEnd} min={props.start.loopStart} max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@ class App extends React.Component {
       cues: [
         {
           id: "cue-1",
-          src: "./test-library/Action_Adventure_Demo.wav",
+          src: "test-library/Action_Adventure_Demo.wav",
           start: {
             event: "event-1",
             location: 0,
