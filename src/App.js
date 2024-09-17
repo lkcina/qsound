@@ -57,9 +57,9 @@ class App extends React.Component {
             delay: 2000,
             volume: 1,
             ramp: 0,
-            loop: false,
+            loop: true,
             loopStart: 0,
-            loopEnd: 0
+            loopEnd: 10000
           },
           changes: [
             {
@@ -75,7 +75,7 @@ class App extends React.Component {
             delay: 0,
             ramp: 2000
           },
-          gain: 1
+          gain: 1.9
         }
       ],
       static: []

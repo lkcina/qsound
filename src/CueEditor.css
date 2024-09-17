@@ -113,3 +113,31 @@
     width: 100%;
     margin: 2px auto 0;
 }
+
+.loop-property {
+    display: none;
+}
+
+.cue .gain-slider {
+    width: 20px;
+    height: 120px;
+    direction: rtl;
+    writing-mode: vertical-lr;
+}
+
+.cue .gain-slider::-webkit-slider-thumb {
+    width: 15px;
+    height: 30px;
+    margin-left: -6px;
+    background: linear-gradient(rgb(100, 100, 100), rgb(230, 230, 230) 3%, rgb(150, 150, 150) 48%, rgb(30, 30, 30) 49%, rgb(30, 30, 30) 51%, rgb(150, 150, 150) 52%, rgb(230, 230, 230) 97%, rgb(100, 100, 100));
+    cursor: pointer;
+}
+
+.cue .gain-slider::-webkit-slider-runnable-track {
+    width: 4px;
+    height: 90px;
+    background: rgb(30, 30, 30);
+    border: 1px solid rgb(100, 100, 100);
+    border-top: 1px solid rgb(50, 50, 50);
+    border-left: 1px solid rgb(50, 50, 50);
+}

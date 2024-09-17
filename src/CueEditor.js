@@ -92,13 +92,13 @@ const Cue = (props) => {
                     <label for={props.id + "-start-loop"}>Loop:</label>
                     <input id={props.id + "-start-loop"} type="checkbox" className="input-checkbox" checked={props.start.loop} onChange={props.editCue}></input>
                 </div>
-                <div className="cue-start-loop-start cue-properties">
+                <div className={props.start.loop ? "cue-start-loop-end cue-properties" : "cue-start-loop-end cue-properties loop-property"}>
                     <label for={props.id + "-start-loop-start"}>Loop Start:</label>
                     <div className="input-number-container">
                         <input id={props.id + "-start-loop-start"} type="number" className="input-number unit" value={props.start.loopStart} min="0" max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
                     </div>
                 </div>
-                <div className="cue-start-loop-end cue-properties">
+                <div className={props.start.loop ? "cue-start-loop-end cue-properties" : "cue-start-loop-end cue-properties loop-property"}>
                     <label for={props.id + "-start-loop-end"}>Loop End:</label>
                     <div className="input-number-container">
                         <input id={props.id + "-start-loop-end"} type="number" className="input-number unit" value={props.start.loopEnd} min={props.start.loopStart} max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
