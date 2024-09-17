@@ -6,8 +6,22 @@ class CueEditor extends React.Component {
     constructor(props) {
       super(props);
       this.addCue = this.addCue.bind(this);
-      this.delCue = this.delCue.bind(this);
+      this.deleteCue = this.deleteCue.bind(this);
       this.editCue = this.editCue.bind(this);
+    }
+
+    addCue() {
+        console.log("Adding cue");
+        // User adds a cue to the project cue list
+    }
+
+    deleteCue(event) {
+        console.log("Deleting " + event.target.parentElement.id);
+        // User deletes a cue from the project cue list
+    }
+
+    editCue(event) {
+        console.log("Editing " + event.target.parentElement.id);
     }
 
     render() {
@@ -16,7 +30,7 @@ class CueEditor extends React.Component {
                 <div id="cue-container" className="container">
                     {this.props.cues.map(cue => {
                         return (
-                            <Cue key={cue.id} id={cue.id} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCue={this.editCue}/>
+                            <Cue key={cue.id} id={cue.id} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCue={this.editCue} library={this.props.library} events={this.props.events}/>
                         )
                     })}
                     <button id="add-cue-btn" onClick={this.addCue}>+</button>
@@ -24,6 +38,33 @@ class CueEditor extends React.Component {
             </div>
         )
     }
+}
+
+const Cue = (props) => {
+    return (
+        <div id={props.id} className="cue">
+            <select className="cue-src" value={props.src} onChange={props.editCue}>
+                {props.library.map(audioFile => {
+                    return (
+                        <option key={audioFile.id} value={audioFile.src}>{audioFile.name}</option>
+                    )
+                })}
+            </select>
+            <div className="cue-start">
+                <p>Start</p>
+                <select className="cue-start-event" value={props.start.event} onChange={props.editCue}>
+                    {props.events.map(event => {
+                        return (
+                            <option key={event.id} value={event.id}>{event.name}</option>
+                        )
+                    })}
+                </select>
+                <div className="cue-start-location">
+                    <input type="number" className="input-time" value={props.start.location} min="0" max={props.library[0].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default CueEditor;

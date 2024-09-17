@@ -14,13 +14,15 @@ class App extends React.Component {
           id: "action-adventure-demo",
           name: "Action_Adventure_Demo.wav",
           src: "test-library/Action_Adventure_Demo.wav",
-          type: "audio/wav"
+          type: "audio/wav",
+          duration: 150000
         },
         {
           id: "theme-loop",
           name: "Theme Loop.mp3",
           src: "test-library/Theme Loop.mp3",
-          type: "audio/mpeg"
+          type: "audio/mpeg",
+          duration: 148000
         }
       ],
       events: [
@@ -84,7 +86,8 @@ class App extends React.Component {
     this.triggerEvent = this.triggerEvent.bind(this);
     this.setEventStart = this.setEventStart.bind(this);
     this.setActiveEvent = this.setActiveEvent.bind(this);
-    this.editEvents = this.editEvents.bind(this); 
+    this.editEvents = this.editEvents.bind(this);
+    this.editCues = this.editCues.bind(this);
   }
 
   editLibrary(array) {
@@ -130,11 +133,17 @@ class App extends React.Component {
     console.log(this.state.events);
   }
 
+  editCues(array) {
+    this.setState({cues: array});
+    console.log(this.state.cues);
+  }
+
   render() {
     return (
       <div id="app">
         <Library library={this.state.library} editLibrary={this.editLibrary} />
         <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEvents={this.editEvents} editEventId={this.editEventId} newEvent={this.newEvent} deleteEvent={this.deleteEvent}/>
+        <CueEditor mode={this.state.mode} library={this.state.library} events={this.state.events} cues={this.state.cues} editCues={this.editCues}/>
       </div>
     );
   }
