@@ -1,4 +1,5 @@
 import './App.css';
+import CueEditor from "./CueEditor.js";
 import EventTimeline from "./EventTimeline.js";
 import Library from "./Library.js";
 import React from 'react';
@@ -13,13 +14,15 @@ class App extends React.Component {
           id: "action-adventure-demo",
           name: "Action_Adventure_Demo.wav",
           src: "test-library/Action_Adventure_Demo.wav",
-          type: "audio/wav"
+          type: "audio/wav",
+          duration: 150000
         },
         {
           id: "theme-loop",
           name: "Theme Loop.mp3",
           src: "test-library/Theme Loop.mp3",
-          type: "audio/mpeg"
+          type: "audio/mpeg",
+          duration: 148000
         }
       ],
       events: [
@@ -44,7 +47,37 @@ class App extends React.Component {
         name: "Start",
         notes: ""
       },
-      cues: [],
+      cues: [
+        {
+          id: "cue-1",
+          src: "test-library/Action_Adventure_Demo.wav",
+          start: {
+            event: "event-1",
+            from: 0,
+            delay: 2000,
+            volume: 1,
+            ramp: 0,
+            loop: true,
+            loopStart: 0,
+            loopEnd: 10000
+          },
+          changes: [
+            {
+              id: "change-1",
+              event: "event-2",
+              delay: 0,
+              volume: 0.5,
+              ramp: 1000
+            }
+          ],
+          stop: {
+            event: "event-3",
+            delay: 0,
+            ramp: 2000
+          },
+          gain: 1.9
+        }
+      ],
       static: []
     };
 
@@ -53,7 +86,8 @@ class App extends React.Component {
     this.triggerEvent = this.triggerEvent.bind(this);
     this.setEventStart = this.setEventStart.bind(this);
     this.setActiveEvent = this.setActiveEvent.bind(this);
-    this.editEvents = this.editEvents.bind(this); 
+    this.editEvents = this.editEvents.bind(this);
+    this.editCues = this.editCues.bind(this);
   }
 
   editLibrary(array) {
@@ -99,11 +133,17 @@ class App extends React.Component {
     console.log(this.state.events);
   }
 
+  editCues(array) {
+    this.setState({cues: array});
+    console.log(this.state.cues);
+  }
+
   render() {
     return (
       <div id="app">
         <Library library={this.state.library} editLibrary={this.editLibrary} />
         <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEvents={this.editEvents} editEventId={this.editEventId} newEvent={this.newEvent} deleteEvent={this.deleteEvent}/>
+        <CueEditor mode={this.state.mode} library={this.state.library} events={this.state.events} cues={this.state.cues} editCues={this.editCues}/>
       </div>
     );
   }

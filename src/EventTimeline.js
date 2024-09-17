@@ -142,13 +142,13 @@ class EventTimeline extends React.Component {
                             this.startTimer();
                         }} style={{ visibility: this.props.mode === "create" ? "hidden" : "visible" }}>Tr</button>
                         <div id="active-event-controls">
-                            <button class="previous-event" onClick={this.previousEvent}>&lt;</button>
+                            <button className="previous-event" onClick={this.previousEvent}>&lt;</button>
                             <select id="active-event" onChange={this.props.setActiveEvent} value={this.props.activeEvent.id}>
                                 {this.props.events.map(event => {
                                     return <option key={event.id} value={event.id}>{event.name}</option>
                                 })};
                             </select>
-                            <button class="next-event" onClick={this.nextEvent}>&gt;</button>
+                            <button className="next-event" onClick={this.nextEvent}>&gt;</button>
                         </div>
                     </div>
                     <div id="timer">00:00:00.00</div>
