@@ -53,7 +53,7 @@ class App extends React.Component {
           src: "test-library/Action_Adventure_Demo.wav",
           start: {
             event: "event-1",
-            location: 0,
+            from: 0,
             delay: 2000,
             volume: 1,
             ramp: 0,
