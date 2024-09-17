@@ -52,13 +52,15 @@ const Cue = (props) => {
             </select>
             <div className="cue-start">
                 <p>Start</p>
-                <select className="cue-start-event" value={props.start.event} onChange={props.editCue}>
-                    {props.events.map(event => {
-                        return (
-                            <option key={event.id} value={event.id}>{event.name}</option>
-                        )
-                    })}
-                </select>
+                <div className="cue-start-event">
+                    <select className="input-selector" value={props.start.event} onChange={props.editCue}>
+                        {props.events.map(event => {
+                            return (
+                                <option key={event.id} value={event.id}>{event.name}</option>
+                            )
+                        })}
+                    </select>
+                </div>
                 <div className="cue-start-location">
                     <input type="number" className="input-number" value={props.start.location} min="0" max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
                 </div>
@@ -80,6 +82,36 @@ const Cue = (props) => {
                 <div className="cue-start-loop-end">
                     <input type="number" className="input-number" value={props.start.loopEnd} min={props.start.loopStart} max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editCue}></input><span>s</span>
                 </div>
+            </div>
+            <div className="cue-changes">
+                <p>Changes</p>
+                {props.changes.map(change => {
+                    return (
+                        <Change key={change.id} id={change.id} event={change.event} delay={change.delay} volume={change.volume} ramp={change.ramp} editCue={props.editCue} events={props.events}/>
+                    )
+                })}
+                <button className="add-change-btn" onClick={props.editCue}>+ Change</button>
+            </div>
+            <div className="cue-stop">
+                <p>Stop</p>
+                <div className="cue-stop-event">
+                    <select className="input-selector" value={props.stop.event} onChange={props.editCue}>
+                        {props.events.map(event => {
+                            return (
+                                <option key={event.id} value={event.id}>{event.name}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+                <div className="cue-stop-delay">
+                    <input type="number" className="input-number" value={props.stop.delay} min="0" step="0.01" onChange={props.editCue}></input><span>s</span>
+                </div>
+                <div className="cue-stop-ramp">
+                    <input type="number" className="input-number" value={props.stop.ramp} min="0" step="0.01" onChange={props.editCue}></input><span>s</span>
+                </div>
+            </div>
+            <div className="cue-gain">
+                <input type="range" className="gain-slider" value={props.gain} min="0" max="2" step="0.01" onChange={props.editCue}></input>
             </div>
         </div>
     )
