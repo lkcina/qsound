@@ -11,7 +11,29 @@ class CueEditor extends React.Component {
     }
 
     addCue() {
-        console.log("Adding cue");
+        let newCues = [...this.props.cues];
+        newCues.push({
+            id: "cue-" + (newCues.length + 1),
+            src: this.props.library[0].src,
+            start: {
+                event: this.props.events[1].id,
+                from: 0,
+                delay: 0,
+                volume: 1,
+                ramp: 0,
+                loop: false,
+                loopStart: 0,
+                loopEnd: 0
+            },
+            changes: [],
+            stop: {
+                event: this.props.events[2].id,
+                delay: 0,
+                ramp: 0
+            },
+            gain: 1
+        });
+        this.props.editCues(newCues);
         // User adds a cue to the project cue list
     }
 
