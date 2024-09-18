@@ -48,7 +48,7 @@ class EventTimeline extends React.Component {
     }
 
     editEventId(event) {
-        let newEvents = [...this.props.events];
+        let newEvents = [...this.props.cues];
         let newId = event.target.value.toLowerCase().replace(/\s/g, "-");
         let idCopies = 0;
         newEvents.map(e => {
@@ -64,7 +64,7 @@ class EventTimeline extends React.Component {
 
     newEvent() {
         let newEvents = [...this.props.events];
-        newEvents.splice(newEvents.length - 1, 0, {id: `event-${newEvents.length}`, name: `Event ${newEvents.length - 1}`, notes: ""});
+        newEvents.splice(newEvents.length - 1, 0, {id: `event-${newEvents.length - 1}`, name: `Event ${newEvents.length - 1}`, notes: ""});
         let newId = newEvents[newEvents.length - 2].id;
         let idCopies = 0;
         newEvents.map(e => {

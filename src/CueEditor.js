@@ -7,16 +7,18 @@ class CueEditor extends React.Component {
       super(props);
       this.addCue = this.addCue.bind(this);
       this.deleteCue = this.deleteCue.bind(this);
-      this.editCue = this.editCue.bind(this);
+      this.editCueId = this.editCueId.bind(this);
+      this.editCueName = this.editCueName.bind(this);
     }
 
     addCue() {
         let newCues = [...this.props.cues];
-        newCues.push({
+        newCues.splice(newCues.length, 0, {
             id: "cue-" + (newCues.length + 1),
+            name: "Cue " + (newCues.length + 1),
             src: this.props.library[0].src,
             start: {
-                event: this.props.events[1].id,
+                event: this.props.events[0].id,
                 from: 0,
                 delay: 0,
                 volume: 1,
@@ -27,23 +29,52 @@ class CueEditor extends React.Component {
             },
             changes: [],
             stop: {
-                event: this.props.events[2].id,
+                event: this.props.events[0].id,
                 delay: 0,
                 ramp: 0
             },
             gain: 1
         });
+        let newId = newCues[newCues.length - 1].id;
+        let idCopies = 0;
+        newCues.map(cue => {
+          if (cue.id === newId && cue !== newCues[newCues.length - 1]) {
+            idCopies++;
+            newId = idCopies === 1 ? newId + "-" + idCopies : newId.slice(0, newId.length - 1) + idCopies;
+          };
+          return newId;
+        });
+        newCues[newCues.length - 1].id = newId;
         this.props.editCues(newCues);
-        // User adds a cue to the project cue list
     }
 
     deleteCue(event) {
-        console.log("Deleting " + event.target.parentElement.id);
+        let newCues = [...this.props.cues];
+        newCues.splice(newCues.findIndex(cue => cue.id === event.target.parentElement.parentElement.id), 1);
+        this.props.editCues(newCues);
+        console.log("Deleting " + event.target.parentElement.parentElement.id);
         // User deletes a cue from the project cue list
     }
 
-    editCue(event) {
-        console.log("Editing " + event.target.parentElement.id);
+    editCueId(event) {
+        let newCues = [...this.props.cues];
+        let newId = event.target.value.toLowerCase().replace(/\s/g, "-");
+        let idCopies = 0;
+        newCues.map(e => {
+          if (e.id !== event.target.parentElement.parentElement.id && e.id === newId) {
+            idCopies++;
+            newId = idCopies === 1 ? newId + "-" + idCopies : newId.slice(0, newId.length - 1) + idCopies;
+          };
+          return newId;
+        });
+        newCues[newCues.findIndex(cue => cue.id === event.target.parentElement.parentElement.id)].id = newId;
+        this.props.editCues(newCues);
+    }
+
+    editCueName(event) {
+        let newCues = [...this.props.cues];
+        newCues[newCues.findIndex(cue => cue.id === event.target.parentElement.parentElement.id)].name = event.target.value;
+        this.props.editCues(newCues);
     }
 
     render() {
@@ -52,7 +83,7 @@ class CueEditor extends React.Component {
                 <div id="cue-container" className="container">
                     {this.props.cues.map(cue => {
                         return (
-                            <Cue key={cue.id} id={cue.id} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCue={this.editCue} library={this.props.library} events={this.props.events}/>
+                            <Cue key={cue.id} id={cue.id} name={cue.name} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCueName={this.editCueName} editCueId={this.editCueId} library={this.props.library} events={this.props.events}/>
                         )
                     })}
                     <button id="add-cue-btn" onClick={this.addCue}>+</button>
@@ -65,7 +96,10 @@ class CueEditor extends React.Component {
 const Cue = (props) => {
     return (
         <div id={props.id} className="cue">
-            <button className="delete-cue-btn" onClick={props.deleteCue}>X</button>
+            <div className="cue-header">
+                <input className="cue-name" type="text" value={props.name} onChange={props.editCueName} onBlur={props.editCueId} onKeyDown={(event) => event.keyCode === 13 ? props.editCueId : props.editCueName}  />
+                <button className="delete-cue-btn" onClick={props.deleteCue}>X</button>
+            </div>
             <div className="cue-src">
                 <h3>Audio</h3>
                 <select id={props.id + "-audio"} className="input-selector" value={props.src} onChange={props.editCue}>
