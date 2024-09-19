@@ -64,7 +64,7 @@ class App extends React.Component {
           },
           changes: [
             {
-              id: "change-1",
+              id: "cue-1-change-1",
               event: "event-2",
               delay: 0,
               volume: 0.5,

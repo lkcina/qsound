@@ -11,6 +11,7 @@ class CueEditor extends React.Component {
       this.editCueName = this.editCueName.bind(this);
       this.editCueSrc = this.editCueSrc.bind(this);
       this.editCueStart = this.editCueStart.bind(this);
+      this.editCueChange = this.editCueChange.bind(this);
     }
 
     addCue() {
@@ -104,13 +105,28 @@ class CueEditor extends React.Component {
         this.props.editCues(newCues);
     }
 
+    editCueChange(e) {
+        let newCues = [...this.props.cues];
+        let targetChange = e.target.parentElement.className === "input-number-container" ? e.target.parentElement.parentElement.parentElement : e.target.parentElement.parentElement;
+        console.log(targetChange);
+        newCues.forEach(cue => {
+            console.log(cue.changes.find(change => change.id === targetChange.id));
+            cue.changes.find(change => change.id === targetChange.id).event = document.getElementById(targetChange.id + "-event").value;
+            cue.changes.find(change => change.id === targetChange.id).delay = document.getElementById(targetChange.id + "-delay").value * 1000;
+            cue.changes.find(change => change.id === targetChange.id).volume = document.getElementById(targetChange.id + "-volume").value;
+            cue.changes.find(change => change.id === targetChange.id).ramp = document.getElementById(targetChange.id + "-ramp").value * 1000;
+        });
+        this.props.editCues(newCues);
+        
+    }
+
     render() {
         return (
             <div id="cue-editor" className="window">
                 <div id="cue-container" className="container">
                     {this.props.cues.map(cue => {
                         return (
-                            <Cue key={cue.id} id={cue.id} name={cue.name} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCueName={this.editCueName} editCueId={this.editCueId} editCueSrc={this.editCueSrc} editCueStart={this.editCueStart} library={this.props.library} events={this.props.events}/>
+                            <Cue key={cue.id} id={cue.id} name={cue.name} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCueName={this.editCueName} editCueId={this.editCueId} editCueSrc={this.editCueSrc} editCueStart={this.editCueStart} editCueChange={this.editCueChange} library={this.props.library} events={this.props.events}/>
                         )
                     })}
                     <button id="add-cue-btn" onClick={this.addCue}>+</button>
@@ -192,7 +208,7 @@ const Cue = (props) => {
                 <h3>Changes</h3>
                 {props.changes.map(change => {
                     return (
-                        <Change key={change.id} id={change.id} event={change.event} delay={change.delay} volume={change.volume} ramp={change.ramp} editCue={props.editCue} events={props.events}/>
+                        <Change key={change.id} id={change.id} cueId={props.id} event={change.event} delay={change.delay} volume={change.volume} ramp={change.ramp} editCueChange={props.editCueChange} events={props.events}/>
                     )
                 })}
                 
@@ -237,7 +253,7 @@ const Change = (props) => {
             <button className="delete-change-btn" onClick={props.editCue}>X</button>
             <div className="change-event cue-properties">
                 <label for={props.id + "-event"}>Event:</label>
-                <select id={props.id + "-event"} className="input-selector" value={props.event} onChange={props.editCue}>
+                <select id={props.id + "-event"} className="input-selector" value={props.event} onChange={props.editCueChange}>
                     {props.events.map(event => {
                         return (
                             <option key={event.id} value={event.id}>{event.name}</option>
@@ -248,19 +264,17 @@ const Change = (props) => {
             <div className="change-delay cue-properties">
                 <label for={props.id + "-delay"}>Delay:</label>
                 <div className="input-number-container">
-                    <input id={props.id + "-delay"} type="number" className="input-number unit" value={props.delay / 1000} min="0" step="0.01" onChange={props.editCue}></input><span>s</span>
+                    <input id={props.id + "-delay"} type="number" className="input-number unit" value={props.delay / 1000} min="0" step="0.01" onChange={props.editCueChange}></input><span>s</span>
                 </div>
             </div>
             <div className="change-volume cue-properties">
                 <label for={props.id + "-volume"}>Volume:</label>
-                <div className="input-number-container">
-                    <input id={props.id + "-volume"} type="number" className="input-number" value={props.volume} min="0" max="2" step="0.01" onChange={props.editCue}></input>
-                </div>
+                <input id={props.id + "-volume"} type="number" className="input-number" value={props.volume} min="0" max="2" step="0.01" onChange={props.editCueChange}></input>
             </div>
             <div className="change-ramp cue-properties">
                 <label for={props.id + "-ramp"}>Ramp:</label>
                 <div className="input-number-container">
-                    <input id={props.id + "-ramp"} type="number" className="input-number unit" value={props.ramp / 1000} min="0" step="0.01" onChange={props.editCue}></input><span>s</span>
+                    <input id={props.id + "-ramp"} type="number" className="input-number unit" value={props.ramp / 1000} min="0" step="0.01" onChange={props.editCueChange}></input><span>s</span>
                 </div>
             </div>
         </div>
