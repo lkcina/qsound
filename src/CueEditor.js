@@ -239,10 +239,7 @@ const Cue = (props) => {
                 <h3>Gain</h3>
                 <div className="gain-tools-container">
                     <div className="gain-controls">
-                        <input type="number" className="gain-number" id={props.id + "-gain-number"} value={props.gain} min="0" max="2" step="0.01" onChange={event => {
-                            event.target.parentElement.querySelector(".gain-slider").value = event.target.value;
-                            props.editCue(event);
-                        }}></input>
+                        <input type="number" className="gain-number" id={props.id + "-gain-number"} value={props.gain} min="0" max="2" step="0.01" readOnly></input>
                         <input type="range" className="gain-slider" id={props.id + "-gain-slider"} value={props.gain} min="0" max="2" step="0.01" onChange={props.editCue}></input>
                     </div>
                 </div>
