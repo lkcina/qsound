@@ -182,14 +182,14 @@
     cursor: pointer;
 }   
 
-.cue .gain-slider {
+.gain-tools-container .gain-slider {
     width: 20px;
     height: 120px;
     direction: rtl;
     writing-mode: vertical-lr;
 }
 
-.cue .gain-slider::-webkit-slider-thumb {
+.gain-tools-container .gain-slider::-webkit-slider-thumb {
     width: 15px;
     height: 30px;
     margin-left: -6px;
@@ -197,7 +197,7 @@
     cursor: pointer;
 }
 
-.cue .gain-slider::-webkit-slider-runnable-track {
+.gain-tools-container .gain-slider::-webkit-slider-runnable-track {
     width: 4px;
     height: 90px;
     background: rgb(30, 30, 30);
