@@ -53,6 +53,26 @@
     position: relative;
 }
 
+.cue-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.cue-name {
+    width: 100%;
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: 2px solid rgb(150, 150, 150);
+    border-top: 2px solid rgb(50, 50, 50);
+    border-left: 2px solid rgb(50, 50, 50);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    color: rgb(200, 200, 200);
+    text-align: left;
+    font-weight: bold;
+    padding: 2px;
+}
+
 .delete-cue-btn {
     height: 25px;
     width: 25px;
@@ -71,6 +91,10 @@
 .cue>div {
     border-top: 2px solid rgb(50, 50, 50);
     padding: 5px 0;
+}
+
+.cue>div:first-of-type {
+    border-top: none;
 }
 
 .cue h3 {
@@ -158,14 +182,50 @@
     cursor: pointer;
 }   
 
-.cue .gain-slider {
+.gain-tools-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.gain-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.gain-controls .gain-number {
+    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
+    border: 2px solid rgb(150, 150, 150);
+    border-top: 2px solid rgb(50, 50, 50);
+    border-left: 2px solid rgb(50, 50, 50);
+    border-radius: 5px;
+    padding: 2px;
+    color: rgb(230, 230, 230);
+    font-size: 1.1rem;
+    width: 30px;
+}
+
+.gain-controls .gain-number::-webkit-outer-spin-button,
+.gain-controls .gain-number::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.gain-controls .gain-number[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.gain-controls .gain-slider {
     width: 20px;
     height: 120px;
     direction: rtl;
     writing-mode: vertical-lr;
 }
 
-.cue .gain-slider::-webkit-slider-thumb {
+.gain-controls .gain-slider::-webkit-slider-thumb {
     width: 15px;
     height: 30px;
     margin-left: -6px;
@@ -173,7 +233,7 @@
     cursor: pointer;
 }
 
-.cue .gain-slider::-webkit-slider-runnable-track {
+.gain-controls .gain-slider::-webkit-slider-runnable-track {
     width: 4px;
     height: 90px;
     background: rgb(30, 30, 30);
