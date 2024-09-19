@@ -10,6 +10,8 @@ class CueEditor extends React.Component {
       this.editCueId = this.editCueId.bind(this);
       this.editCue = this.editCue.bind(this);
       this.editCueChange = this.editCueChange.bind(this);
+      this.addCueChange = this.addCueChange.bind(this);
+        this.deleteCueChange = this.deleteCueChange.bind(this);
     }
 
     addCue() {
@@ -86,19 +88,48 @@ class CueEditor extends React.Component {
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].start.volume = document.getElementById(targetCue.id + "-start-volume").value;
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].start.ramp = document.getElementById(targetCue.id + "-start-ramp").value * 1000;
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].start.loop = document.getElementById(targetCue.id + "-start-loop").checked;
-        newCues[newCues.findIndex(cue => cue.id === targetCue.id)].start.loopStart = document.getElementById(targetCue.id + "-start-loop-start").value * 1000;
-        const loopEndElement = document.getElementById(targetCue.id + "-start-loop-end");
-        while (parseFloat(loopEndElement.value) < parseFloat(loopEndElement.min)) {
-            loopEndElement.value = (parseFloat(loopEndElement.value) + 0.01).toFixed(2);
-        }
-        while (parseFloat(loopEndElement.value) > parseFloat(loopEndElement.max)) {
-            loopEndElement.value = (parseFloat(loopEndElement.value) - 0.01).toFixed(2);
-        }
+        newCues[newCues.findIndex(cue => cue.id === targetCue.id)].start.loopStart = document.getElementById(targetCue.id + "-start-loop-start").value * 1000;        
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].start.loopEnd = document.getElementById(targetCue.id + "-start-loop-end").value * 1000;
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].stop.event = document.getElementById(targetCue.id + "-stop-event").value;
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].stop.delay = document.getElementById(targetCue.id + "-stop-delay").value * 1000;
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].stop.ramp = document.getElementById(targetCue.id + "-stop-ramp").value * 1000;
         newCues[newCues.findIndex(cue => cue.id === targetCue.id)].gain = document.getElementById(targetCue.id + "-gain-slider").value;
+        this.props.editCues(newCues);
+    }
+
+    addCueChange(event) {
+        let newCues = [...this.props.cues];
+        let targetCue = newCues.find(cue => cue.id === event.target.parentElement.parentElement.id);
+        console.log(targetCue.changes);
+        targetCue.changes.splice(targetCue.changes.length, 0, {
+            id: targetCue.id + "-change-" + (targetCue.changes.length + 1),
+            event: this.props.events[0].id,
+            delay: 0,
+            volume: 1,
+            ramp: 0
+        });
+        let newId = targetCue.changes[targetCue.changes.length - 1].id;
+        let idCopies = 0;
+        targetCue.changes.map(change => {
+          if (change.id === newId && change !== targetCue.changes[targetCue.changes.length - 1]) {
+            idCopies++;
+            newId = idCopies === 1 ? newId + "-" + idCopies : newId.slice(0, newId.length - 1) + idCopies;
+          };
+          return newId;
+        });
+        targetCue.changes[targetCue.changes.length - 1].id = newId;
+        newCues.find(cue => cue.id === targetCue.id).changes = targetCue.changes;
+        this.props.editCues(newCues);
+    }
+
+    deleteCueChange(event) {
+        let newCues = [...this.props.cues];
+        let targetChange = event.target;
+        while (targetChange.className !== "change") {
+            targetChange = targetChange.parentElement;
+        }
+        let targetCue = targetChange.parentElement.parentElement;
+        newCues.find(cue => cue.id === targetCue.id).changes.splice(newCues.find(cue => cue.id === targetCue.id).changes.findIndex(change => change.id === targetChange.id), 1);
         this.props.editCues(newCues);
     }
 
@@ -122,7 +153,7 @@ class CueEditor extends React.Component {
                 <div id="cue-container" className="container">
                     {this.props.cues.map(cue => {
                         return (
-                            <Cue key={cue.id} id={cue.id} name={cue.name} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCue={this.editCue} editCueId={this.editCueId} editCueChange={this.editCueChange} library={this.props.library} events={this.props.events}/>
+                            <Cue key={cue.id} id={cue.id} name={cue.name} src={cue.src} start={cue.start} changes={cue.changes} stop={cue.stop} gain={cue.gain} deleteCue={this.deleteCue} editCue={this.editCue} editCueId={this.editCueId} addCueChange={this.addCueChange} deleteCueChange={this.deleteCueChange} editCueChange={this.editCueChange} library={this.props.library} events={this.props.events}/>
                         )
                     })}
                     <button id="add-cue-btn" onClick={this.addCue}>+</button>
@@ -204,11 +235,11 @@ const Cue = (props) => {
                 <h3>Changes</h3>
                 {props.changes.map(change => {
                     return (
-                        <Change key={change.id} id={change.id} cueId={props.id} event={change.event} delay={change.delay} volume={change.volume} ramp={change.ramp} editCueChange={props.editCueChange} events={props.events}/>
+                        <Change key={change.id} id={change.id} cueId={props.id} event={change.event} delay={change.delay} volume={change.volume} ramp={change.ramp} editCueChange={props.editCueChange} deleteCueChange={props.deleteCueChange} events={props.events}/>
                     )
                 })}
                 
-                <button className="add-change-btn" onClick={props.addChange}>+ Change</button>
+                <button className="add-change-btn" onClick={props.addCueChange}>+ Change</button>
             </div>
             <div className="cue-stop">
                 <h3>Stop</h3>
@@ -251,7 +282,7 @@ const Cue = (props) => {
 const Change = (props) => {
     return (
         <div id={props.id} className="change">
-            <button className="delete-change-btn" onClick={props.editCue}>X</button>
+            <button className="delete-change-btn" onClick={props.deleteCueChange}>X</button>
             <div className="change-event cue-properties">
                 <label htmlFor={props.id + "-event"}>Event:</label>
                 <select id={props.id + "-event"} className="input-selector" value={props.event} onChange={props.editCueChange}>
