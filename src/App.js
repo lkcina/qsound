@@ -1,4 +1,5 @@
 import './App.css';
+import AudioProcessor from "./AudioProcessor.js";
 import CueEditor from "./CueEditor.js";
 import EventTimeline from "./EventTimeline.js";
 import Library from "./Library.js";
@@ -145,6 +146,7 @@ class App extends React.Component {
         <Library library={this.state.library} editLibrary={this.editLibrary} />
         <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEvents={this.editEvents} editEventId={this.editEventId} newEvent={this.newEvent} deleteEvent={this.deleteEvent}/>
         <CueEditor mode={this.state.mode} library={this.state.library} events={this.state.events} cues={this.state.cues} editCues={this.editCues}/>
+        <AudioProcessor mode={this.state.mode} events={this.state.events} activeEvent={this.state.activeEvent} cues={this.state.cues} static={this.state.static}/>
       </div>
     );
   }

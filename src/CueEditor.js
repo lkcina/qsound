@@ -11,7 +11,7 @@ class CueEditor extends React.Component {
       this.editCue = this.editCue.bind(this);
       this.editCueChange = this.editCueChange.bind(this);
       this.addCueChange = this.addCueChange.bind(this);
-        this.deleteCueChange = this.deleteCueChange.bind(this);
+      this.deleteCueChange = this.deleteCueChange.bind(this);
     }
 
     addCue() {
