@@ -55,10 +55,10 @@ class App extends React.Component {
           src: "test-library/Action_Adventure_Demo.wav",
           start: {
             event: "event-1",
-            from: 0,
+            from: 15000,
             delay: 2000,
             volume: 1,
-            ramp: 0,
+            ramp: 5000,
             loop: true,
             loopStart: 0,
             loopEnd: 10000
@@ -77,7 +77,7 @@ class App extends React.Component {
             delay: 0,
             ramp: 2000
           },
-          gain: 1.9
+          gain: 1.0
         }
       ],
       static: []
@@ -146,7 +146,7 @@ class App extends React.Component {
         <Library library={this.state.library} editLibrary={this.editLibrary} />
         <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEvents={this.editEvents} editEventId={this.editEventId} newEvent={this.newEvent} deleteEvent={this.deleteEvent}/>
         <CueEditor mode={this.state.mode} library={this.state.library} events={this.state.events} cues={this.state.cues} editCues={this.editCues}/>
-        <AudioProcessor mode={this.state.mode} events={this.state.events} activeEvent={this.state.activeEvent} cues={this.state.cues} static={this.state.static}/>
+        <AudioProcessor mode={this.state.mode} events={this.state.events} activeEvent={this.state.activeEvent} eventStart={this.state.eventStart} cues={this.state.cues} static={this.state.static}/>
       </div>
     );
   }
