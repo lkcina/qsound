@@ -52,16 +52,16 @@ class App extends React.Component {
         {
           id: "cue-1",
           name: "Cue 1",
-          src: "test-library/Action_Adventure_Demo.wav",
+          src: "test-library/Theme Loop.mp3",
           start: {
             event: "event-1",
-            from: 15000,
-            delay: 2000,
+            from: 0,
+            delay: 0,
             volume: 1,
-            ramp: 5000,
+            ramp: 0,
             loop: true,
-            loopStart: 0,
-            loopEnd: 10000
+            loopStart: 68000,
+            loopEnd: 132600
           },
           changes: [
             {
@@ -167,7 +167,6 @@ class App extends React.Component {
             clearInterval(ramp);
             
         } else {
-            console.log(gain);
             const newCues = [...this.state.cues];
             newCues[newCues.findIndex(newCue => newCue.id === cue.id)].gain = gain;
             this.setState({cues: newCues});

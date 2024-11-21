@@ -75,6 +75,27 @@ class AudioProcessor extends React.Component {
                             console.log("start " + cue.id);
                             audioElement.currentTime = cue.start.from / 1000;
                             audioElement.play();
+                            if (cue.start.loop) {
+                                let playTime = audioElement.currentTime;
+                                audioElement.addEventListener("timeupdate", (event) => {
+                                    playTime = audioElement.currentTime;
+                                    console.log(playTime);
+                                })
+                                const playTimer = setInterval(() => {
+                                    if (audioElement.paused) {
+                                        console.log("End Loop")
+                                        clearInterval(playTimer);
+                                    } else if (playTime >= cue.start.loopEnd / 1000) {
+                                        playTime = cue.start.loopStart / 1000;
+                                        audioElement.currentTime = cue.start.loopStart / 1000;
+                                        console.log("Looping", playTime, audioElement.currentTime);
+                                    } else {
+                                        playTime += 0.01;
+                                        console.log(playTime);
+                                    }
+                                }, 10)
+                            }
+                            
                             this.props.changeCueGain(cue, triggeredEvent, 0, 0, cue.start.volume, cue.start.ramp);
                         }
                     }, cue.start.delay);
