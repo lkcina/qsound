@@ -182,62 +182,21 @@
     cursor: pointer;
 }   
 
-.gain-tools-container {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-}
 
-.gain-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-}
-
-.gain-controls .gain-number {
-    background: linear-gradient(120deg, rgb(50, 50, 50), rgb(20, 20, 20));
-    border: 2px solid rgb(150, 150, 150);
-    border-top: 2px solid rgb(50, 50, 50);
-    border-left: 2px solid rgb(50, 50, 50);
-    border-radius: 5px;
-    padding: 2px;
-    color: rgb(230, 230, 230);
-    font-size: 1.1rem;
-    width: 30px;
-}
-
-.gain-controls .gain-number::-webkit-outer-spin-button,
-.gain-controls .gain-number::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.gain-controls .gain-number[type=number] {
-    appearance: textfield;
-    -moz-appearance: textfield;
-}
 
 .gain-controls .gain-slider {
     width: 20px;
-    height: 120px;
-    direction: rtl;
-    writing-mode: vertical-lr;
+    height: 120px
 }
 
 .gain-controls .gain-slider::-webkit-slider-thumb {
     width: 15px;
     height: 30px;
     margin-left: -6px;
-    background: linear-gradient(rgb(100, 100, 100), rgb(150, 150, 150) 7%, rgb(230, 230, 230) 8%, rgb(150, 150, 150) 48%, rgb(30, 30, 30) 49%, rgb(30, 30, 30) 51%, rgb(150, 150, 150) 52%, rgb(230, 230, 230) 92%, rgb(150, 150, 150) 93%, rgb(100, 100, 100));
-    cursor: pointer;
+    
 }
 
 .gain-controls .gain-slider::-webkit-slider-runnable-track {
     width: 4px;
     height: 90px;
-    background: rgb(30, 30, 30);
-    border: 1px solid rgb(100, 100, 100);
-    border-top: 1px solid rgb(50, 50, 50);
-    border-left: 1px solid rgb(50, 50, 50);
 }

@@ -1,21 +1,31 @@
+import "./AudioProcessor.css";
+import "./App.css";
 import React from 'react';
 
 
 const audioContext = new AudioContext();
 const masterGain = audioContext.createGain();
+const masterAnalyser = audioContext.createAnalyser();
+const analyserArray = new Uint8Array();
 const output = audioContext.destination;
+masterGain.connect(masterAnalyser);
 masterGain.connect(output);
-masterGain.gain.value = 1;
+masterAnalyser.getByteFrequencyData(analyserArray);
 
 class AudioProcessor extends React.Component {
     constructor(props) {
         super(props);
-        
+        this.state = {masterGainValue: 1}
+        this.changeMasterGain = this.changeMasterGain.bind(this);
+    }
+
+    changeMasterGain(event) {
+        this.setState({masterGainValue: event.target.value});
     }
 
     render() {
         
-        
+        masterGain.gain.value = this.state.masterGainValue;
 
         if (this.props.mode === "present") {
             audioContext.resume();
@@ -30,12 +40,10 @@ class AudioProcessor extends React.Component {
                 };
             })
         } else {
-            console.log(document.querySelectorAll("body > audio"));
             [...document.querySelectorAll("body > audio")].forEach(audio => {
                 audio.pause();
                 audio.remove();
             });
-            console.log(document.querySelectorAll("body > audio"));
             
             audioContext.suspend();
         }
@@ -87,11 +95,19 @@ class AudioProcessor extends React.Component {
             })
         }
         
-
-
+        
         return (
-            <div id="audio-processor">
-                <h1>Audio Processor</h1>
+            <div id="audio-processor" className="window">
+                <div id="master-gain">
+                    <h3 className="gain-label">Gain</h3>
+                    <div className="gain-tools-container">
+                        <div className="gain-controls">
+                            <input type="number" className="gain-number" id={"master-gain-number"} value={masterGain.gain.value} min="0" max="1" step="0.01" readOnly></input>
+                            <input type="range" className="gain-slider" id={"master-gain-slider"} value={masterGain.gain.value} min="0" max="1" step="0.01" onChange={this.changeMasterGain}></input>
+                        </div>
+                    </div>
+                </div>
+                <h2>Stereo Out</h2>
             </div>
         );
     }
