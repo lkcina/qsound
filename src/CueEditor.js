@@ -11,7 +11,7 @@ class CueEditor extends React.Component {
       this.editCue = this.editCue.bind(this);
       this.editCueChange = this.editCueChange.bind(this);
       this.addCueChange = this.addCueChange.bind(this);
-        this.deleteCueChange = this.deleteCueChange.bind(this);
+      this.deleteCueChange = this.deleteCueChange.bind(this);
     }
 
     addCue() {
@@ -270,8 +270,8 @@ const Cue = (props) => {
                 <h3>Gain</h3>
                 <div className="gain-tools-container">
                     <div className="gain-controls">
-                        <input type="number" className="gain-number" id={props.id + "-gain-number"} value={props.gain} min="0" max="2" step="0.01" readOnly></input>
-                        <input type="range" className="gain-slider" id={props.id + "-gain-slider"} value={props.gain} min="0" max="2" step="0.01" onChange={props.editCue}></input>
+                        <input type="number" className="gain-number" id={props.id + "-gain-number"} value={props.gain} min="0" max="1" step="0.01" readOnly></input>
+                        <input type="range" className="gain-slider" id={props.id + "-gain-slider"} value={props.gain} min="0" max="1" step="0.01" onChange={props.editCue}></input>
                     </div>
                 </div>
             </div>
