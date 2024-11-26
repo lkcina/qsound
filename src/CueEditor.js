@@ -167,7 +167,7 @@ const Cue = (props) => {
     return (
         <div id={props.id} className="cue">
             <div className="cue-header">
-                <input className="cue-name" id={props.id + "-name"} type="text" value={props.name} onChange={props.editCue} onBlur={props.editCueId} onKeyDown={(event) => event.keyCode === 13 ? props.editCueId : props.editCue}  />
+                <input className="cue-name" id={props.id + "-name"} type="text" value={props.name} onChange={props.editCue} onBlur={props.editCueId} onKeyDown={(event) => event.key === "Enter" ? props.editCueId : props.editCue}  />
                 <button className="delete-cue-btn" onClick={props.deleteCue}>X</button>
             </div>
             <div className="cue-src">

@@ -1,0 +1,14 @@
+#static-editor {
+    width: 30%;
+    min-width: 200px;
+    height: calc(65% - 15px);
+    position: absolute;
+    left: calc(50% + 5px);
+    top: 0;
+}
+
+@media screen and (min-width: 1500px) {
+    #audio-processor {
+        right: 305px;
+    }
+}

@@ -1,5 +1,6 @@
 import './App.css';
 import AudioProcessor from "./AudioProcessor.js";
+import StaticEditor from "./StaticEditor.js";
 import CueEditor from "./CueEditor.js";
 import EventTimeline from "./EventTimeline.js";
 import Library from "./Library.js";
@@ -80,7 +81,19 @@ class App extends React.Component {
           gain: 1.0
         }
       ],
-      static: [],
+      statics: [
+        {
+          id: "static-1",
+          name: "Static 1",
+          src: "test-library/Action_Adventure_Demo.wav",
+          trigger: "1",
+          from: 0,
+          to: 2000,
+          rampIn: 250,
+          rampOut: 250,
+          gain: 1
+        }
+      ],
       gainRamps: []
     };
 
@@ -93,6 +106,7 @@ class App extends React.Component {
     this.editCues = this.editCues.bind(this);
     this.changeCueGain = this.changeCueGain.bind(this);
     this.editGainRamps = this.editGainRamps.bind(this);
+    this.editStatics = this.editStatics.bind(this);
   }
 
   editLibrary(array) {
@@ -184,12 +198,18 @@ class App extends React.Component {
     console.log(this.state.gainRamps);
   }
 
+  editStatics(array) {
+    this.setState({statics: array});
+    console.log(this.state.statics);
+  }
+
   render() {
     return (
       <div id="app">
         <Library library={this.state.library} editLibrary={this.editLibrary} />
         <EventTimeline events={this.state.events} mode={this.state.mode} toggleMode={this.toggleMode} setEventStart={this.setEventStart} eventStart={this.state.eventStart} activeEvent={this.state.activeEvent} setActiveEvent={this.setActiveEvent} triggerEvent={this.triggerEvent} editEvents={this.editEvents} editEventId={this.editEventId} newEvent={this.newEvent} deleteEvent={this.deleteEvent}/>
         <CueEditor mode={this.state.mode} library={this.state.library} events={this.state.events} cues={this.state.cues} editCues={this.editCues}/>
+        <StaticEditor mode={this.state.mode} library={this.state.library} statics={this.state.statics} editStatics={this.editStatics}/>
         <AudioProcessor mode={this.state.mode} events={this.state.events} activeEvent={this.state.activeEvent} eventStart={this.state.eventStart} cues={this.state.cues} static={this.state.static} changeCueGain={this.changeCueGain} gainRamps={this.state.gainRamps} editCues={this.editCues} editGainRamps={this.editGainRamps}/>
       </div>
     );

@@ -15,80 +15,80 @@
     margin-bottom: 5px;
   }
   
-  #library .toolbar .add-audio-btn {
-    background: none;
-    border: none;
-    color: rgb(150, 150, 150);
-    font-size: 2rem;
-  }
-  
-  #library .toolbar .add-audio-btn:hover {
-    color: rgb(200, 200, 200);
-    cursor: pointer;
-  }
-  
-  #library .audio-file-container {
-    height: calc(100% - 65px);
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  #library .audio-file-container .audio-file {
-    display: grid;
-    grid-template-columns: 25px auto 25px;
-    height: 20px;
-    width: 100%;
-  }
-  
-  #library .audio-file-container .audio-file button {
-    width: 20px;
-    background: none;
-    border: none;
-    color: rgb(150, 150, 150);
-    font-size: 1.5rem;
-    visibility: hidden;
-    border-radius: 5px;
-  }
-  
-  #library .audio-file-container .audio-file .library-play-btn {
-    grid-column: 1;
-  }
-  
-  #library .audio-file-container .audio-file .library-del-btn {
-    grid-column: 3;
-  }
-  
-  #library .audio-file-container .audio-file p {
-    color: rgb(200, 200, 200);
-    font-size: 1.5rem;
-    grid-column: 2;
-    text-align: left;
-    overflow-x: hidden;
-    text-wrap: nowrap;
-  }
-  
-  #library .audio-file-container .audio-file:hover button {
-    visibility: visible;
-  }
-  
-  #library .audio-file-container .audio-file .library-play-btn:hover {
-    color: rgb(100, 200, 100);
-    cursor: pointer;
-  }
-  
-  #library .audio-file-container .audio-file .library-del-btn:hover {
-    color: rgb(200, 100, 100);
-    cursor: pointer;
-  }
-  
-  #library .audio-file-container .audio-file .library-playing {
-    color: rgb(50, 50, 50);
-    background: linear-gradient(120deg, rgb(100, 220, 100), rgb(80, 150, 80));
-    visibility: visible;
-  }
-  
-  #library .audio-file-container .audio-file .library-playing:hover {
-    color: rgb(200, 200, 200);
-    background: linear-gradient(120deg, rgb(80, 150, 80), rgb(50, 120, 50));
-  }
+#library .toolbar .add-audio-btn {
+  background: none;
+  border: none;
+  color: rgb(150, 150, 150);
+  font-size: 2rem;
+}
+
+#library .toolbar .add-audio-btn:hover {
+  color: rgb(200, 200, 200);
+  cursor: pointer;
+}
+
+#library .audio-file-container {
+  height: calc(100% - 65px);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#library .audio-file-container .audio-file {
+  display: grid;
+  grid-template-columns: 25px auto 25px;
+  height: 20px;
+  width: 100%;
+}
+
+#library .audio-file-container .audio-file button {
+  width: 20px;
+  background: none;
+  border: none;
+  color: rgb(150, 150, 150);
+  font-size: 1.5rem;
+  visibility: hidden;
+  border-radius: 5px;
+}
+
+#library .audio-file-container .audio-file .library-play-btn {
+  grid-column: 1;
+}
+
+#library .audio-file-container .audio-file .library-del-btn {
+  grid-column: 3;
+}
+
+#library .audio-file-container .audio-file p {
+  color: rgb(200, 200, 200);
+  font-size: 1.5rem;
+  grid-column: 2;
+  text-align: left;
+  overflow-x: hidden;
+  text-wrap: nowrap;
+}
+
+#library .audio-file-container .audio-file:hover button {
+  visibility: visible;
+}
+
+#library .audio-file-container .audio-file .library-play-btn:hover {
+  color: rgb(100, 200, 100);
+  cursor: pointer;
+}
+
+#library .audio-file-container .audio-file .library-del-btn:hover {
+  color: rgb(200, 100, 100);
+  cursor: pointer;
+}
+
+#library .audio-file-container .audio-file .library-playing {
+  color: rgb(50, 50, 50);
+  background: linear-gradient(120deg, rgb(100, 220, 100), rgb(80, 150, 80));
+  visibility: visible;
+}
+
+#library .audio-file-container .audio-file .library-playing:hover {
+  color: rgb(200, 200, 200);
+  background: linear-gradient(120deg, rgb(80, 150, 80), rgb(50, 120, 50));
+}
