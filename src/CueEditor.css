@@ -17,6 +17,7 @@
 #add-cue-btn {
     height: 30px;
     width: 30px;
+    min-width: 30px;
     background: rgb(200, 200, 200);
     border: none;
     border-radius: 50%;
@@ -38,6 +39,7 @@
 .cue {
     height: max-content;
     width: 170px;
+    min-width: 170px;
     min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -199,4 +201,12 @@
 .gain-controls .gain-slider::-webkit-slider-runnable-track {
     width: 4px;
     height: 90px;
+}
+
+
+
+@media screen and (max-width: 750px) {
+    #cue-editor {
+        width: calc(100% - 370px);
+    }
 }

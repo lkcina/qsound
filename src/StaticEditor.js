@@ -18,7 +18,7 @@ class StaticEditor extends React.Component {
             id: "static-" + (newStatics.length + 1),
             name: "Static " + (newStatics.length + 1),
             src: this.props.library[0].src,
-            trigger: "Select",
+            trigger: "",
             from: 0,
             to: this.props.library[0].duration,
             rampIn: 0,
@@ -113,37 +113,37 @@ const Static = (props) => {
                 </select>
             </div>
             <div className="static-cue">
-                <h3>Cue</h3>
-                <div className="static-trigger cue-properties">
+                <h3>Properties</h3>
+                <div className="static-trigger static-properties">
                     <label htmlFor={props.id + "-trigger"}>Trigger:</label>
-                    <input id={props.id + "-trigger"} type="text" value={props.trigger} maxLength="1" onChange={props.editStatic} />
+                    <input id={props.id + "-trigger"} className="input-text" type="text" value={props.trigger} maxLength="1" onChange={props.editStatic} placeholder="Key"/>
                 </div>
-                <div className="static-from cue-properties">
+                <div className="static-from static-properties">
                     <label htmlFor={props.id + "-from"}>From:</label>
                     <div className="input-number-container">
                         <input id={props.id + "-from"} type="number" className="input-number unit" value={props.from / 1000} min="0" max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editStatic}></input><span>s</span>
                     </div>
                 </div>
-                <div className="static-to cue-properties">
+                <div className="static-to static-properties">
                     <label htmlFor={props.id + "-to"}>To:</label>
                     <div className="input-number-container">
                         <input id={props.id + "-to"} type="number" className="input-number unit" value={props.to / 1000} min={props.from / 1000} max={props.library[props.library.findIndex(audioFile => audioFile.src === props.src)].duration / 1000} step="0.01" onChange={props.editStatic}></input><span>s</span>
                     </div>
                 </div>
-                <div className="static-ramp-in cue-properties">
+                <div className="static-ramp-in static-properties">
                     <label htmlFor={props.id + "-ramp-in"}>Ramp In:</label>
                     <div className="input-number-container">
                         <input id={props.id + "-ramp-in"} type="number" className="input-number unit" value={props.rampIn / 1000} min="0" max={(props.to - props.from) / 1000} step="0.01" onChange={props.editStatic}></input><span>s</span>
                     </div>
                 </div>
-                <div className="static-ramp-out cue-properties">
+                <div className="static-ramp-out static-properties">
                     <label htmlFor={props.id + "-ramp-out"}>Ramp Out:</label>
                     <div className="input-number-container">
                         <input id={props.id + "-ramp-out"} type="number" className="input-number unit" value={props.rampOut / 1000} min="0" max={(props.to - props.from - props.rampIn) / 1000} step="0.01" onChange={props.editStatic}></input><span>s</span>
                     </div>
                 </div>
             </div>
-            <div className="cue-gain">
+            <div className="static-gain">
                 <h3>Gain</h3>
                 <div className="gain-tools-container">
                     <div className="gain-controls">
